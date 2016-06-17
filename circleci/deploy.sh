@@ -18,11 +18,14 @@ Build [#$CIRCLE_BUILD_NUM]($CIRCLE_BUILD_URL) by $CIRCLE_USERNAME at $TIMESTAMP
 [$CIRCLE_COMPARE_URL]($CIRCLE_COMPARE_URL)
 EOF
 
-git clone git@github.com:spiritedmedia/ci-test-build.git tmp/
+git clone git@github.com:spiritedmedia/pedestal-beta-build.git tmp/
 mv tmp/.git .
 rm -rf tmp/
+if [ $CIRCLE_BRANCH != "master" ]; then
+	git checkout $CIRCLE_BRANCH
+fi
 git add -A
 git commit -m "Build #$CIRCLE_BUILD_NUM by $CIRCLE_USERNAME on $TIMESTAMP"
-git push origin master --force
+git push origin $CIRCLE_BRANCH --force
 
 echo "Code changes pushed!"
