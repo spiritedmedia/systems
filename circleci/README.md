@@ -13,7 +13,7 @@ Almost all of the configuration for CircleCI is handled in the [circle.yml](http
  
 When setting up a new build you can add environment variables by going to the build's settings screen. Look for _Environment Variables_ under the _Build Settings_ section. The following environment variables are needed for our `deploy.sh` script:
 
-0. DEPLOY_REPO_URL : The repo to commit the build to. Should be the SSH version not the HTTPS link to the repo i.e. `git@github.com:spiritedmedia/pedestal-beta.git`
+0. DEPLOY_REPO_URL : The repo to commit the build to. Should be the SSH version not the HTTPS link to the repo i.e. `git@github.com:spiritedmedia/pedestal-beta-build.git`
 
 ### Access Keys
 Keys are tricky. We need read access from the source repo and read/write access for the build repo. More TKTK.
