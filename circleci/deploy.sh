@@ -22,10 +22,13 @@ git clone git@github.com:spiritedmedia/pedestal-beta-build.git tmp/
 mv tmp/.git .
 rm -rf tmp/
 if [ $CIRCLE_BRANCH != "master" ]; then
+	if [ ! `git branch --list $CIRCLE_BRANCH` ]; then
+	   echo "Branch name $CIRCLE_BRANCH already exists."
+	fi
 	git checkout $CIRCLE_BRANCH
 fi
-git add -A
-git commit -m "Build #$CIRCLE_BUILD_NUM by $CIRCLE_USERNAME on $TIMESTAMP"
-git push origin $CIRCLE_BRANCH --force
+# git add -A
+# git commit -m "Build #$CIRCLE_BUILD_NUM by $CIRCLE_USERNAME on $TIMESTAMP"
+# git push origin $CIRCLE_BRANCH --force
 
 echo "Code changes pushed!"
