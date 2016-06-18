@@ -21,14 +21,19 @@ EOF
 git clone git@github.com:spiritedmedia/pedestal-beta-build.git tmp/
 mv tmp/.git .
 rm -rf tmp/
+
+# Switch branches... maybe?
 if [ $CIRCLE_BRANCH != "master" ]; then
 	if [ ! `git branch --list $CIRCLE_BRANCH` ]; then
-	   echo "Branch name $CIRCLE_BRANCH already exists."
+	   git checkout -b $CIRCLE_BRANCH
+   	else
+		git checkout $CIRCLE_BRANCH
 	fi
-	git checkout $CIRCLE_BRANCH
 fi
-# git add -A
-# git commit -m "Build #$CIRCLE_BUILD_NUM by $CIRCLE_USERNAME on $TIMESTAMP"
-# git push origin $CIRCLE_BRANCH --force
+
+# Add everything and commit
+git add -A
+git commit -m "Build #$CIRCLE_BUILD_NUM by $CIRCLE_USERNAME on $TIMESTAMP"
+git push origin $CIRCLE_BRANCH --force
 
 echo "Code changes pushed!"
