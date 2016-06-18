@@ -2,7 +2,7 @@ echo "Starting Deploy..."
 git config --global user.name "CircleCI"
 git config --global user.email "systems@spiritedmedia.com"
 
-cd /home/ubuntu/ci-test
+cd /home/ubuntu/$CIRCLE_PROJECT_REPONAME # <-- Change this to match the name of the repo we're building
 # This should be ignored in .gitignore-deploy but let's try and remove it just to be safe
 rm -rf node_modules/
 rm -rf .git/
