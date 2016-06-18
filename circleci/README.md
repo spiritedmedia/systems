@@ -20,7 +20,8 @@ The circle.yml file tells CircleCI which build tools to install and which comman
 
 This repo is cloned and a shell script is run depending on the branch being built. The gist of the shell script is to remove a few uncessary files and commit the changes to a separate repo so the build can easily be pulled down to servers.
 
-### Deploying to Production
+### All Deployments
+
  - Remove the `node_modules` directory. It's big and we don't need it to serve the websites.
  - Remove the `.gitignore` and replace it with the `.gitignore-build` version. The build version lets us commit compiled assets like CSS and JavaScript.
  - Remove the `README.md` file in the root of the repo and replace it with a generated one containing various build stats. 

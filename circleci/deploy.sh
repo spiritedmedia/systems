@@ -25,8 +25,9 @@ rm -rf tmp/
 # Switch branches... maybe?
 if [ $CIRCLE_BRANCH != "master" ]; then
 	if [ ! `git branch --list $CIRCLE_BRANCH` ]; then
-	   git checkout -b $CIRCLE_BRANCH
-   	else
+		# Branch doesn't exist. Create it and check it out. See http://stackoverflow.com/a/21151276
+		git checkout -b $CIRCLE_BRANCH
+	else
 		git checkout $CIRCLE_BRANCH
 	fi
 fi
