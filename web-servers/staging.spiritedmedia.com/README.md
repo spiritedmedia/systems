@@ -74,7 +74,7 @@ sudo ee secure --auth
 # Clone our application repo containing wp-content stuff
 cd /var/www/staging.spiritedmedia.com/htdocs/
 sudo git init
-sudo git remote add origin git@github.com:spiritedmedia/pedestal-beta.git
+sudo git remote add origin git@github.com:spiritedmedia/pedestal-beta-build.git
 
 # Create a new SSH key so our server and talk to our private GitHub repo
 sudo ssh-keygen -t rsa -b 4096 -C "systems+ec2@spiritedmedia.com"
@@ -94,6 +94,9 @@ sudo chown -R www-data:www-data htdocs/
 ```
 
 Now login to WordPress and set things up the way they need to be set-up (delete unecessary themes and plugins etc).
+
+## Set-up the Deploy Script
+Copy `deploy-staging.sh` to `/var/www/scripts/deploy-staging.sh`. This is used by AWS CodeDeploy to update the application from our build repo so the server is running the latest version of the code.
 
 ## Password Protection
 Because this is a staging server we only want certain people to be able to access it. Adding a basic authentication layer keeps the public out as well as bots. 
