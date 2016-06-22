@@ -7,6 +7,12 @@ Use an HVM AMI not a PV AMI. Apparently HVM is better. See [http://docs.aws.amaz
  - VPC: Stage - Spirited Media
  - IAM role: CodeDeploy-EC2
  - Key paid name: EC2 - Stage - Spirited Media
+
+## User Data
+```
+#!/bin/bash
+source /var/www/staging.spiritedmedia.com/scripts/deploy-update.sh
+```
  
 ## Tags
 - Name: Staging - Spirited Media
