@@ -101,6 +101,27 @@ sudo chown -R www-data:www-data htdocs/
 
 Now login to WordPress and set things up the way they need to be set-up (delete unecessary themes and plugins etc).
 
+## wp-config.php
+
+Recommended additions to the wp-config.php file:
+
+```
+// For the Domain Mapping plugin, Mercator
+define( 'SUNRISE', 'on' );
+
+// Add redis cache credentails for WP Redis plugin
+$redis_server = array(
+    'host' => '127.0.0.1',
+    'port' => 6379,
+);
+
+// S3 User access keys for WP Offload S3 Lite
+// See https://deliciousbrains.com/wp-offload-s3/doc/quick-start-guide/
+define( 'DBI_AWS_ACCESS_KEY_ID', '********************' );
+define( 'DBI_AWS_SECRET_ACCESS_KEY', '****************************************' );
+
+```
+
 ## Set-up the Deploy Script
 Copy `deploy-staging.sh` to `/var/www/scripts/deploy-staging.sh`. This is used by AWS CodeDeploy to update the application from our build repo so the server is running the latest version of the code.
 
