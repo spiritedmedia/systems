@@ -1,6 +1,6 @@
 # Documenting Our Cloud
 
-**Production URLs**
+## Production URLs
 
 | ID  | Unmapped URL                   | Mapped URL       |
 | --: | :-----------                   | :----------      |
@@ -8,7 +8,13 @@
 | 2   | [billypenn.spiritedmedia.com](http://billypenn.spiritedmedia.com) | [billypenn.com](http://billypenn.com)  |     
 | 3   | [theincline.spiritedmedia.com](http://theincline.spiritedmedia.com) | [theincline.com](http://theincline.com) |
 
-**Staging URLs**
+Uploaded Media
+
+| S3 | KeyCDN | Mapped |
+| --- | --- | --- |
+|<https://spiritedmedia-com.s3.amazonaws.com>|KeyCDN CNAME|<https://spirited.media>|
+
+## Staging URLs
 Protected behind a username/password dialog: `spirited` / `media`
 
 | ID  | Unmapped URL                         | Mapped URL             |
@@ -17,7 +23,9 @@ Protected behind a username/password dialog: `spirited` / `media`
 | 2   | [billypenn.staging.spiritedmedia.com](http://billypenn.staging.spiritedmedia.com) | [staging.billypenn.com]()  |     
 | 3   | [theincline.staging.spiritedmedia.com](http://theincline.staging.spiritedmedia.com) | [staging.theincline.com](http://staging.theincline.com) |
 
-**Local Development URLs**
+Uploaded Media: <https://staging-spiritedmedia-com.s3.amazonaws.com>
+
+## Local Development URLs
 
 | ID  | Unmapped URL                 | Mapped URL     |
 | --: | :-----------                 | :----------    |
