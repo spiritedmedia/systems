@@ -3,7 +3,7 @@
 GitHub Repo --> CircleCI --> Build-specific GitHub Repo --> AWS CodePipeline --> AWS CodeDeploy --> Notifications
 
 ## GitHub Repo
-Code changes are committed to a GitHub repo. When the changes are merged into the `staging` branch or a release tag is created, [CircleCI](../circleci/circleci.md) will be notified.
+Code changes are committed to a GitHub repo. When the changes are merged into the `staging` branch or a release tag is created, [CircleCI](../circleci/README.md) will be notified.
 
 ## CircleCI
 
