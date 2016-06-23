@@ -6,6 +6,7 @@ GitHub Repo --> CircleCI --> Build-specific GitHub Repo --> AWS CodePipeline -->
 Code changes are committed to a GitHub repo. When the changes are merged into the `staging` branch or a release tag is created, [CircleCI](../circleci/README.md) will be notified.
 
 ## CircleCI
+See [CircleCI section](circleci/).
 
 ## Build-specific GitHub Repo
 Once CircleCI finishes building the repo, the full set of changes are committed to a separate repo automatically. Keeping finished builds in Git allows us to easily pull down changes on the servers, easily ignore certain directories, and add/remove files as necessary. Weaving additions and deletions into WordPress' folder structure is tricky using other tools like [rsync](https://en.wikipedia.org/wiki/Rsync).
