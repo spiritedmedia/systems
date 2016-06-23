@@ -12,7 +12,7 @@
 All of the configuration for CircleCI is handled in the [circle.yml](https://circleci.com/docs/config-sample/) file in the root of the repo to be built. 
 
 ### Access Keys
-Keys are tricky. We need read access from the source repo and read/write access for the build repo. More TKTK.
+In order to grant read and write access to the main repo and the build-specific repo, we grant access to the GitHub bot user BillyPenn. Access isn't tied to a specific indivudal who could leave the Spirited Media organization. Usually a deployment key would suffice but a deployment key can only be used for one repo, not two.
 
 ## How does it work?
 
