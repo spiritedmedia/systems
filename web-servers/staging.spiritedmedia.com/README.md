@@ -6,24 +6,24 @@ Use an HVM AMI not a PV AMI. Apparently HVM is better. See [http://docs.aws.amaz
  - Instance type: `t2.micro` for testing, `t2.medium` for production
  - VPC: Stage - Spirited Media
  - IAM role: CodeDeploy-EC2
- - Key paid name: EC2 - Stage - Spirited Media
+ - Key pair name: EC2 - Stage - Spirited Media
 
 ## User Data
 ```
 #!/bin/bash
 source /var/www/staging.spiritedmedia.com/scripts/deploy-update.sh
 ```
- 
+
 ## Tags
 - Name: Staging - Spirited Media
 - Environment: Staging
- 
+
 ## Security Groups
 - Web Server - Stage - Spirited Media (Enables HTTP traffic on Port 80)
 - Developer SSH (Enables SSH access for approved IPs)
- 
+
 # Accessing the Initial Image
-Find the Public DNS and Public IP information for the instance from the AWS console. 
+Find the Public DNS and Public IP information for the instance from the AWS console.
 
 Use the Public DNS hostname to SSH into with the user as `ubuntu`. It would be a good idea to add this to your `~/.ssh/config` file to make life easier.
 
@@ -73,7 +73,7 @@ sudo ee stack install --redis
 sudo ee stack install --phpredisadmin
 
 # Change permissions for accessing the dev tools on port 22222
-# Set to 'spirited' and 'media' for convenience 
+# Set to 'spirited' and 'media' for convenience
 sudo ee secure --auth
 
 
@@ -126,7 +126,7 @@ define( 'DBI_AWS_SECRET_ACCESS_KEY', '****************************************' 
 Copy `deploy-staging.sh` to `/var/www/scripts/deploy-staging.sh`. This is used by AWS CodeDeploy to update the application from our build repo so the server is running the latest version of the code.
 
 ## Password Protection
-Because this is a staging server we only want certain people to be able to access it. Adding a basic authentication layer keeps the public out as well as bots. 
+Because this is a staging server we only want certain people to be able to access it. Adding a basic authentication layer keeps the public out as well as bots.
 
 ```
 # Install apache2-utils for generating the password
@@ -147,8 +147,6 @@ Save an AMI via the AWS Console once everything is in it's right place. The AMI 
 # Glossary
 **AMI** - Amazon Machine Image, Amazon's own virtual machine format
 
-**HVM** - Hardware Virtual Machine provides the ability to run an operating system directly on top of a virtual machine without any modification, as if it were run on the bare-metal hardware. 
+**HVM** - Hardware Virtual Machine provides the ability to run an operating system directly on top of a virtual machine without any modification, as if it were run on the bare-metal hardware.
 
 **PV** - Paravirtual guests can run on host hardware that does not have explicit support for virtualization, but they cannot take advantage of special hardware extensions such as enhanced networking or GPU processing.
-
-  	
