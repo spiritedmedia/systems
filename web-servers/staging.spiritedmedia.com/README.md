@@ -126,19 +126,7 @@ define( 'DBI_AWS_SECRET_ACCESS_KEY', '****************************************' 
 Copy `deploy-staging.sh` to `/var/www/scripts/deploy-staging.sh`. This is used by AWS CodeDeploy to update the application from our build repo so the server is running the latest version of the code.
 
 ## Password Protection
-Because this is a staging server we only want certain people to be able to access it. Adding a basic authentication layer keeps the public out as well as bots.
-
-```
-# Install apache2-utils for generating the password
-sudo apt-get install apache2-utils
-
-# Create a new password file for the user 'spirited'
-sudo htpasswd -c /var/www/staging.spiritedmedia.com/conf/nginx/.htpasswd spirited
-
-# When prompted enter a password. Let's use 'media'
-
-# Copy basic-auth.conf from this repo to /var/www/staging.spiritedmedia.com/conf/nginx/basic-auth.conf
-```
+Because this is a staging server we only want certain people to be able to access it. Adding a basic authentication layer keeps the public out as well as bots. See the `basic-auth.conf` file in the [nginx section](../nginx/README.md).
 
 # Create an AMI
 Save an AMI via the AWS Console once everything is in it's right place. The AMI will be used to relaunch the instance if necessary. This also provides a backup to the server before major upgrades.
