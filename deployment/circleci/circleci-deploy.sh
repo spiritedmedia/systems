@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Starting Deploy..."
 git config --global user.name "CircleCI"
 git config --global user.email "systems@spiritedmedia.com"
@@ -21,6 +22,12 @@ EOF
 git clone git@github.com:spiritedmedia/pedestal-beta-build.git tmp/
 mv tmp/.git .
 rm -rf tmp/
+
+# If no branch is set then assume master
+if [ ! $CIRCLE_BRANCH  ]; then
+	CIRCLE_BRANCH="master"
+	echo $CIRCLE_BRANCH
+fi
 
 # Switch branches... maybe?
 if [ $CIRCLE_BRANCH != "master" ]; then
