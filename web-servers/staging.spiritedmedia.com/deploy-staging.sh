@@ -1,5 +1,6 @@
 #!/bin/bash
 # Shell script to update the app level with the latest changes from GitHub (ex. when called form AWS CodeDeploy)
+# Should be placed in /var/www/staging.spiritedmedia.com/scripts/ and run as root
 
 cd /var/www/staging.spiritedmedia.com/htdocs/
 
