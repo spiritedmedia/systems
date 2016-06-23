@@ -1,4 +1,5 @@
 # Documenting Our Cloud
+AWS Console login: <http://aws.spiritedmedia.com>
 
 ## Production URLs
 
