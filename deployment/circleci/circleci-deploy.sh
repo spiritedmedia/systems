@@ -60,7 +60,7 @@ if [[ $CIRCLE_TAG ]]; then
 
 fi
 
-# This should be ignored in .gitignore-deploy but let's try and remove it just to be safe
+# This should be ignored in .gitignore-build but let's try and remove it just to be safe
 rm -rf node_modules/
 rm -rf .git/
 rm .gitignore
