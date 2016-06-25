@@ -4,13 +4,9 @@ git config --global user.name "CircleCI"
 git config --global user.email "systems@spiritedmedia.com"
 
 cd /home/ubuntu/$CIRCLE_PROJECT_REPONAME # <-- Change this to match the name of the repo we're building
-# This should be ignored in .gitignore-deploy but let's try and remove it just to be safe
-rm -rf node_modules/
-rm -rf .git/
-rm .gitignore
-mv .gitignore-build .gitignore
 
 TIMESTAMP=$(date +"%Y-%m-%d %I:%M %p %Z")
+
 # Make a new README.md with build status details
 rm README.md
 cat > README.md <<EOF
@@ -18,6 +14,57 @@ Build [#$CIRCLE_BUILD_NUM]($CIRCLE_BUILD_URL) by $CIRCLE_USERNAME at $TIMESTAMP
 
 [$CIRCLE_COMPARE_URL]($CIRCLE_COMPARE_URL)
 EOF
+
+# If a Git tag is being built then include a change log in the README.md file
+if [[ $CIRCLE_TAG ]]; then
+
+	# Get a list of all tags in reverse order
+	# Assumes the tags are in version format like v1.2.3
+	GIT_TAGS=$(git tag -l --sort=-version:refname)
+
+	# Make the tags an array
+	TAGS=($GIT_TAGS)
+	LATEST_TAG=${TAGS[0]}
+	PREVIOUS_TAG=${TAGS[1]}
+
+	# Get a log of commits that occured between two tags
+	# We only get the commit hash so we don't have to deal with a bunch of ugly parsing
+	# See Pretty format placeholders at https://git-scm.com/docs/pretty-formats
+	COMMITS=$(git log $PREVIOUS_TAG..$LATEST_TAG --pretty=format:"%H")
+
+	# Store our changelog in a variable to be saved to a file at the end
+	MARKDOWN="## Change log"
+	MARKDOWN+='\n'
+	MARKDOWN+="[Full Changelog]($CIRCLE_REPOSITORY_URL/compare/$PREVIOUS_TAG...$LATEST_TAG)"
+	MARKDOWN+='\n'
+	# Loop over each commit looking for merged pull requests.
+	for COMMIT in $COMMITS; do
+		# Get the subject of the current commit
+		SUBJECT=$(git log -1 ${COMMIT} --pretty=format:"%s")
+
+		# If the subject contains "Merge pull request #xxxxx" then it is deemed a pull request
+		PULL_REQUEST=$( grep -Eo "Merge pull request #[[:digit:]]+" <<< "$SUBJECT" )
+		if [[ $PULL_REQUEST ]]; then
+			# Perform a substring operation so we're left with just the digits of the pull request
+			PULL_NUM=${PULL_REQUEST#"Merge pull request #"}
+
+			#Get the body of the commit
+			BODY=$(git log -1 ${COMMIT} --pretty=format:"%b")
+			MARKDOWN+='\n'
+			MARKDOWN+=" - [#$PULL_NUM]($CIRCLE_REPOSITORY_URL/pull/$PULL_NUM): $BODY"
+		fi
+	done
+
+	# Save our markdown to a file
+	echo -e $MARKDOWN >> README.md
+
+fi
+
+# This should be ignored in .gitignore-deploy but let's try and remove it just to be safe
+rm -rf node_modules/
+rm -rf .git/
+rm .gitignore
+mv .gitignore-build .gitignore
 
 git clone git@github.com:spiritedmedia/pedestal-beta-build.git tmp/
 mv tmp/.git .
