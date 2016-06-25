@@ -26,7 +26,6 @@ rm -rf tmp/
 # If no branch is set then assume master
 if [ ! $CIRCLE_BRANCH  ]; then
 	CIRCLE_BRANCH="master"
-	echo $CIRCLE_BRANCH
 fi
 
 # Switch branches... maybe?
