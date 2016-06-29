@@ -13,3 +13,6 @@ chown -R www-data:www-data /var/www/staging.spiritedmedia.com/htdocs/
 
 # Restart Nginx and PHP7 for good measure
 ee stack restart --nginx --php7
+
+# Flush permalinks
+wp rewrite flush
