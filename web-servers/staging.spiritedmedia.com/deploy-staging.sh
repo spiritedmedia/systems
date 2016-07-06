@@ -15,4 +15,4 @@ chown -R www-data:www-data /var/www/staging.spiritedmedia.com/htdocs/
 ee stack restart --nginx --php7
 
 # Flush permalinks
-wp rewrite flush
+wp rewrite flush --allow-root
