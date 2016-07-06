@@ -11,7 +11,7 @@ Use an HVM AMI not a PV AMI. Apparently HVM is better. See [http://docs.aws.amaz
 ## User Data
 ```
 #!/bin/bash
-source /var/www/staging.spiritedmedia.com/scripts/deploy-update.sh
+source /var/www/staging.spiritedmedia.com/scripts/deploy-staging.sh
 ```
 
 ## Tags
