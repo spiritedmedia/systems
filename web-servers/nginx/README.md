@@ -9,6 +9,12 @@
   
 Site specific configuration is also stored in the `sites-available/` directory. The `sites-enabled/` directoy contains sym-links to the configurations in `sites-available/` to enable or disable a site. Delete a sym-link in the `sites-enabled/` directory to disable a site without wiping out the configuration file.
 
+# Redis Caching with ElastiCache
+
+Edit `/etc/nginx/conf.d/upstream.conf`, look for `upstream redis { server 127.0.0.1:6379; keepalive 10; }` and replace with your ElastiCache endpoint URL.
+
+See <https://github.com/EasyEngine/easyengine/issues/597>
+
 # Nginx Configs
 
 A lot of this was gleaned from the [HTML5 Boiler Plate Server Configs](https://github.com/h5bp/server-configs-nginx) project. EasyEngine also [has a few recommendations](https://easyengine.io/tutorials/nginx/optimization/) 
