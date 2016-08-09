@@ -39,16 +39,6 @@ Edit `/etc/nginx/conf.d/upstream.conf`, look for `upstream redis { server 127.0.
 
 See <https://github.com/EasyEngine/easyengine/issues/597>
 
-## Notes About Full Page Caching
-- TTL is 4 hours
-- Caching behavior is controlled through the Nginx Helper plugin in the Network Settings: <http://spiritedmedia.com/wp-admin/network/settings.php?page=nginx>
-- Be sure to update the hostname value to `redis.spiritedmedia.com`
-- Only requests to PHP pages are cached in Redis
-- Requests with query strings in the URL are not cached
-- Check the `X-SRCache-Fetch-Status` header of the response in Dev tools to determine if the page was cached or not (HIT or MISS)
-
-<img width="678" alt="Look for X-SRCache-Fetch-Status" src="https://cloud.githubusercontent.com/assets/867430/17533469/d8069d7c-5e52-11e6-965e-3b1a68c54788.png">
-
 # Misc.
 
 ## Reload vs. Restart?

@@ -151,6 +151,18 @@ Copy `deploy-production.sh` to `/var/www/spiritedmedia.com/scripts/deploy-produc
 # Create an AMI
 Save an AMI via the AWS Console once everything is in it's right place. The AMI will be used to launch new instances for autoscaling. This also provides a backup to the server before major upgrades.
 
+# Full Page Caching with Redis and ElastiCache
+
+EasyEngine makes it easy to handle full page caching via Redis. See [EasyEngine 3.3 released with Full-Page Redis Cache support](https://easyengine.io/blog/easyengine-3-3-full-page-redis-cache/)
+
+- Cache TTL is 4 hours
+- Caching behavior is controlled set through the [Nginx Helper plugin](https://wordpress.org/plugins/nginx-helper/) in the Network Settings: <http://spiritedmedia.com/wp-admin/network/settings.php?page=nginx>
+- Be sure to update the hostname value to `redis.spiritedmedia.com`
+- Only requests to PHP pages are cached in Redis
+- Requests with query strings in the URL are not cached
+- Check the `X-SRCache-Fetch-Status` header of the response in Dev tools to determine if the page was cached or not (HIT or MISS or BYPASS)
+
+<img width="678" alt="Look for X-SRCache-Fetch-Status" src="https://cloud.githubusercontent.com/assets/867430/17533469/d8069d7c-5e52-11e6-965e-3b1a68c54788.png">
 
 # Glossary
 **AMI** - Amazon Machine Image, Amazon's own virtual machine format
