@@ -160,6 +160,7 @@ EasyEngine makes it easy to handle full page caching via Redis. See [EasyEngine 
 - Be sure to update the hostname value to `redis.spiritedmedia.com`
 - Only requests to PHP pages are cached in Redis
 - Requests with query strings in the URL are not cached
+- You can see what's cached using the [phpRedisAdmin tool](https://spiritedmedia.com:22222/cache/redis/phpRedisAdmin) (look for the `nginx-cache` key)
 - Check the `X-SRCache-Fetch-Status` header of the response in Dev tools to determine if the page was cached or not (HIT or MISS or BYPASS)
 
 <img width="678" alt="Look for X-SRCache-Fetch-Status" src="https://cloud.githubusercontent.com/assets/867430/17533469/d8069d7c-5e52-11e6-965e-3b1a68c54788.png">
