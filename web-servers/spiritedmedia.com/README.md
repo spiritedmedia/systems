@@ -109,9 +109,9 @@ define( 'SUNRISE', 'on' );
 
 ```
 // Add redis cache credentails for WP Redis plugin
-// Check the Redis Endpoint in the ElasticCache console
+// redis.spiritedmedia.com is set to mirror the Redis Endpoint in the ElasticCache console
 $redis_server = array(
-    'host' => '*******.cache.amazonaws.com',
+    'host' => 'redis.spiritedmedia.com',
     'port' => 6379,
 );
 ```
