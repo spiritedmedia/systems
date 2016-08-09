@@ -29,3 +29,34 @@ GOOD: spiritedmedia-com - https://spiritedmedia-com.s3.amazonaws.com works as ex
 ```
 
 `https://spiritedmedia.com.s3.amazonaws.com` results in a self-signed HTTPS certificate where as  `https://spiritedmedia-com.s3.amazonaws.com` 
+
+## Syncing Media
+
+The [s3cmd](http://s3tools.org/s3cmd) tool is installed on production instances. This allows syncing between a local file system and an S3 bucket.
+
+*Note: The `--dry-run` argument needs to be removed before you actually run the sync commands.*
+
+### Sync the Entire `/uploads/` directory
+
+`s3cmd sync --dry-run /var/www/spiritedmedia.com/htdocs/wp-content/uploads/ s3://spiritedmedia-com/wp-content/uploads/`
+
+### Selective Sync
+Sync files in the web server root. Exclude everything, include any patterns in a file called sync.include:
+
+`s3cmd sync --dry-run --exclude '*' --include-from sync.include /var/www/spiritedmedia.com/htdocs/ s3://spiritedmedia-com/`
+
+sync.include file:
+
+```
+# Comments
+*.js
+*.css
+*.png
+*.jpg
+*.jpeg
+*.bmp
+*.gif
+*.svg
+```
+
+[WP Offload S3 Lite](https://wordpress.org/plugins/amazon-s3-and-cloudfront/) enables media files uploaded to the media library to be copied over to S3 and synced. 
