@@ -62,7 +62,8 @@ fi
 
 # This should be ignored in .gitignore-build but let's try and remove it just to be safe
 rm -rf node_modules/
-rm -rf .git/
+# Find all .git/ directories and remove them. If we commit directories with .git in them then they are treated like sub-modules and screw that.
+find . | grep -w ".git" | xargs rm -rf
 rm .gitignore
 mv .gitignore-build .gitignore
 
