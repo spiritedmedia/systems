@@ -64,6 +64,9 @@ fi
 rm -rf node_modules/
 # Find all .git/ directories and remove them. If we commit directories with .git in them then they are treated like sub-modules and screw that.
 find . | grep -w ".git" | xargs rm -rf
+# Remove all .gitignore files in the wp-content/ and vendor/ directories
+find wp-content/ vendor/ -name ".gitignore" | xargs rm
+
 rm .gitignore
 mv .gitignore-build .gitignore
 
