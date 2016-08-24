@@ -128,6 +128,118 @@ Copy `deploy-staging.sh` to `/var/www/scripts/deploy-staging.sh`. This is used b
 ## Password Protection
 Because this is a staging server we only want certain people to be able to access it. Adding a basic authentication layer keeps the public out as well as bots. See the `basic-auth.conf` file in the [nginx section](../nginx/).
 
+## Database Backups
+We perform daily database backups so we have a way to revert changes if need be. The [AutoMySQLBackup](https://sourceforge.net/projects/automysqlbackup/) script performs the dump and [S3cmd-sync](http://s3tools.org/s3cmd-sync) syncs the files to the `staging-spiritedmedia-com` S3 bucket. 
+
+### Install AutoMySQLBackup
+```
+# Download AutoMySQLBackup from Source Forge
+sudo wget http://downloads.sourceforge.net/project/automysqlbackup/AutoMySQLBackup/AutoMySQLBackup%20VER%203.0/automysqlbackup-v3.0_rc6.tar.gz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fautomysqlbackup%2F&ts=1471914576&use_mirror=superb-sea2
+
+# Move it to the backups directory and rename the downloaded payload
+sudo mv automysqlbackup-v3.0_rc6.tar.gz\?r\=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fautomysqlbackup%2F /var/www/staging.spiritedmedia.com/backups/automysqlbackup/automysqlbackup-v3.0_rc6.tar.gz
+
+cd /var/www/staging.spiritedmedia.com/backups/automysqlbackup/
+
+sudo tar -xvzf automysqlbackup-v3.0_rc6.tar.gz
+```
+
+We need to get the database credentials that EasyEngine set-up for our site. Run `sudo ee site info staging.spiritedmedia.com` and copy the `DB_NAME`, `DB_USER`, and `DB_PASS` values.
+
+Edit `/var/www/staging.spiritedmedia.com/backups/automysqlbackup/automysqlbackup.conf` and uncomment the following values:
+
+```
+# Username to access the MySQL server e.g. dbuser
+CONFIG_mysql_dump_username='DB_USER'
+
+# Password to access the MySQL server e.g. password
+CONFIG_mysql_dump_password='DB_PASS'
+
+# Host name (or IP address) of MySQL server e.g localhost
+CONFIG_mysql_dump_host='localhost'
+
+# Backup directory location e.g /backups
+CONFIG_backup_dir='/var/www/staging.spiritedmedia.com/backups/db'
+
+# List of databases for Daily/Weekly Backup e.g. ( 'DB1' 'DB2' 'DB3' ... )
+# set to (), i.e. empty, if you want to backup all databases
+CONFIG_db_names=()
+
+# List of databases for Monthly Backups.
+# set to (), i.e. empty, if you want to backup all databases
+CONFIG_db_month_names=()
+
+# List of DBNAMES to EXLUCDE if DBNAMES is empty, i.e. ().
+CONFIG_db_exclude=( 'information_schema' )
+
+# While a --single-transaction dump is in process, to ensure a valid dump file (correct table contents and
+# binary log coordinates), no other connection should use the following statements: ALTER TABLE, CREATE TABLE,
+# DROP TABLE, RENAME TABLE, TRUNCATE TABLE. A consistent read is not isolated from those statements, so use of
+# them on a table to be dumped can cause the SELECT that is performed by mysqldump to retrieve the table
+# contents to obtain incorrect contents or fail.
+CONFIG_mysql_dump_single_transaction='no'
+
+# Choose Compression type. (gzip or bzip2)
+CONFIG_mysql_dump_compression='gzip'
+
+# Store an additional copy of the latest backup to a standard
+# location so it can be downloaded by third party scripts.
+CONFIG_mysql_dump_latest='yes'
+
+# Remove all date and time information from the filenames in the latest folder.
+# Runs, if activated, once after the backups are completed. Practically it just finds all files in the latest folder
+# and removes the date and time information from the filenames (if present).
+CONFIG_mysql_dump_latest_clean_filenames='no'
+
+CONFIG_mysql_dump_differential='no'
+
+# What would you like to be mailed to you?
+# - log   : send only log file
+# - files : send log file and sql files as attachments (see docs)
+# - stdout : will simply output the log to the screen if run manually.
+# - quiet : Only send logs if an error occurs to the MAILADDR.
+CONFIG_mailcontent='log'
+
+# Email Address to send mail to? (user@domain.com)
+CONFIG_mail_address='systems@spiritedmedia.com'
+```
+
+### Install S3cmd
+
+The easiest way to install S3cmd is via [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)).
+
+```
+sudo pip install s3cmd
+```
+
+To configure S3cmd run `sudo s3cmd --configure` and follow the prompts. The S3 `Access Key` and `Secret Key` can be accessed via the [IAM dashboard](https://console.aws.amazon.com/iam/home?region=us-east-1). Make sure the user has the policy `AmazonS3FullAccess` attached.
+
+
+### Create a `backup.sh` Script
+
+Create `/var/www/staging.spiritedmedia.com/backups/backup.sh` and paste the following:
+
+```
+#!/bin/bash
+
+# DB backup
+/var/www/staging.spiritedmedia.com/backups/automysqlbackup/automysqlbackup -bc /var/www/staging.spiritedmedia.com/backups/automysqlbackup/automysqlbackup.conf
+
+# S3 Sync for offsite backup of DB files
+s3cmd sync /var/www/staging.spiritedmedia.com/backups/db/ s3://staging-spiritedmedia-com/db/
+```
+
+Give it a test run `sudo ./backup.sh`. Check the S3 bucket to make sure the files successfully synced.
+
+You can automate the backups via a cron job, `sudo crontab -e`.
+
+Add the following, use [crontab.guru](http://crontab.guru/) to identify the timing:
+
+```
+# At 3:29 every day run the DB backup script
+29 3 * * * /var/www/staging.spiritedmedia.com/backups/backup.sh > /dev/null 2>&1
+```
+
 # Create an AMI
 Save an AMI via the AWS Console once everything is in it's right place. The AMI will be used to relaunch the instance if necessary. This also provides a backup to the server before major upgrades.
 
