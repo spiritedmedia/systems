@@ -62,9 +62,6 @@ source /etc/bash_completion.d/ee_auto.rc
 # Create a site for spiritedmedia.com
 sudo ee site create spiritedmedia.com --wpsubdomain --wpredis --php7 --user=admin --pass=admin --email=systems@spiritedmedia.com --experimental
 
-# Remove local Redis since we're using ElastiCache
-sudo ee stack remove --redis
-
 # Install Admin/dev tools
 sudo ee stack install --admin
 
