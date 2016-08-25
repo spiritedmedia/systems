@@ -206,13 +206,7 @@ CONFIG_mail_address='systems@spiritedmedia.com'
 
 ### Install S3cmd
 
-The easiest way to install S3cmd is via [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)).
-
-```
-sudo pip install s3cmd
-```
-
-To configure S3cmd run `sudo s3cmd --configure` and follow the prompts. The S3 `Access Key` and `Secret Key` can be accessed via the [IAM dashboard](https://console.aws.amazon.com/iam/home?region=us-east-1). Make sure the user has the policy `AmazonS3FullAccess` attached.
+See the [S3 section](../../s3#install-s3cmd).
 
 
 ### Create a `backup.sh` Script

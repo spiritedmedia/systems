@@ -34,9 +34,19 @@ GOOD: spiritedmedia-com - https://spiritedmedia-com.s3.amazonaws.com works as ex
 
 The [s3cmd](http://s3tools.org/s3cmd) tool is installed on production instances. This allows syncing between a local file system and an S3 bucket.
 
-*Note: The `--dry-run` argument needs to be removed before you actually run the sync commands.*
+### Install S3cmd
+
+The easiest way to install S3cmd is via [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)).
+
+```
+sudo pip install s3cmd
+```
+
+To configure S3cmd run `sudo s3cmd --configure` and follow the prompts. The S3 `Access Key` and `Secret Key` can be accessed via the [IAM dashboard](https://console.aws.amazon.com/iam/home?region=us-east-1). Make sure the user has the policy `AmazonS3FullAccess` attached.
 
 ### Sync the Entire `/uploads/` directory
+
+*Note: The `--dry-run` argument needs to be removed before you actually run the sync commands.*
 
 `s3cmd sync --dry-run /var/www/spiritedmedia.com/htdocs/wp-content/uploads/ s3://spiritedmedia-com/wp-content/uploads/`
 
