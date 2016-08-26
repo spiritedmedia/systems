@@ -8,6 +8,9 @@ cd /var/www/spiritedmedia.com/htdocs/
 git fetch --all
 git reset --hard origin/master
 
+# Sync static theme files to S3 so they can be served through a CDN
+s3cmd sync --exclude-from /var/www/spiritedmedia.com/scripts/sync.exclude --include-from /var/www/spiritedmedia.com/scripts/sync.include /var/www/spiritedmedia.com/htdocs/wp-content/ s3://spiritedmedia-com/wp-content/
+
 # Reset file ownership
 chown -R www-data:www-data /var/www/spiritedmedia.com/htdocs/
 

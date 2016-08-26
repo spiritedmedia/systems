@@ -1,0 +1,11 @@
+# Should be placed in /var/www/spiritedmedia.com/scripts/ and run from the deploy-production.sh script
+
+*.js
+*.css
+*.png
+*.jpg
+*.jpeg
+*.bmp
+*.gif
+*.ico
+*.svg
