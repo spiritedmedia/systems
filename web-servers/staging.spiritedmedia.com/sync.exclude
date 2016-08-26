@@ -1,0 +1,12 @@
+# List of paths and wildcard patterns that should be excluded from s3cmd syncing
+# Should be placed in /var/www/staging.spiritedmedia.com/scripts/ and run from the deploy-staging.sh script
+
+# Exclude everything
+*
+
+# The uploads directory is handled by another script
+/var/www/staging.spiritedmedia.com/htdocs/wp-content/uploads/
+/var/www/staging.spiritedmedia.com/htdocs/wp-content/themes/twentysixteen/
+
+# These files aren't actually served on the frontend so we don't need to sync them
+/var/www/staging.spiritedmedia.com/htdocs/wp-content/themes/pedestal/assets/vendor/

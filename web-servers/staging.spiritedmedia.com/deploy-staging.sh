@@ -6,7 +6,10 @@ cd /var/www/staging.spiritedmedia.com/htdocs/
 
 # Force git pull
 git fetch --all
-git reset --hard origin/staging
+git reset --hard origin/pedestal-restructuring
+
+# Sync static theme files to S3 so they can be served through a CDN
+s3cmd sync --exclude-from /var/www/staging.spiritedmedia.com/scripts/sync.exclude --include-from /var/www/staging.spiritedmedia.com/scripts/sync.include /var/www/staging.spiritedmedia.com/htdocs/wp-content/ s3://staging-spiritedmedia-com/wp-content/
 
 # Reset file ownership
 chown -R www-data:www-data /var/www/staging.spiritedmedia.com/htdocs/
