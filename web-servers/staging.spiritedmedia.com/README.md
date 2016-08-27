@@ -61,7 +61,7 @@ wget -qO ee rt.cx/ee && sudo bash ee
 source /etc/bash_completion.d/ee_auto.rc
 
 # Create a site for staging.spiritedmedia.com
-sudo ee site create staging.spiritedmedia.com --wpsubdomain --php7 --user=admin --pass=admin --email=product@billypenn.com --experimental
+sudo ee site create staging.spiritedmedia.com --wpsubdomain --php7 --user=admin --pass=admin --email=systems@spiritedmedia.com --experimental
 
 # Install Admin/dev tools
 sudo ee stack install --admin
