@@ -70,7 +70,7 @@ find wp-content/ vendor/ -name ".gitignore" | xargs rm
 rm .gitignore
 mv .gitignore-build .gitignore
 
-git clone git@github.com:spiritedmedia/pedestal-beta-build.git tmp/
+git clone git@github.com:spiritedmedia/pedestal-build.git tmp/
 mv tmp/.git .
 rm -rf tmp/
 
