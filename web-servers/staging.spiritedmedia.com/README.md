@@ -80,7 +80,7 @@ sudo ee secure --auth
 # Clone our application repo containing wp-content stuff
 cd /var/www/staging.spiritedmedia.com/htdocs/
 sudo git init
-sudo git remote add origin git@github.com:spiritedmedia/pedestal-beta-build.git
+sudo git remote add origin git@github.com:spiritedmedia/pedestal-build.git
 
 # Create a new SSH key so our server and talk to our private GitHub repo
 sudo ssh-keygen -t rsa -b 4096 -C "systems+ec2@spiritedmedia.com"
@@ -129,7 +129,7 @@ Copy `deploy-staging.sh` to `/var/www/scripts/deploy-staging.sh`. This is used b
 Because this is a staging server we only want certain people to be able to access it. Adding a basic authentication layer keeps the public out as well as bots. See the `basic-auth.conf` file in the [nginx section](../nginx/).
 
 ## Database Backups
-We perform daily database backups so we have a way to revert changes if need be. The [AutoMySQLBackup](https://sourceforge.net/projects/automysqlbackup/) script performs the dump and [S3cmd-sync](http://s3tools.org/s3cmd-sync) syncs the files to the `staging-spiritedmedia-com` S3 bucket. 
+We perform daily database backups so we have a way to revert changes if need be. The [AutoMySQLBackup](https://sourceforge.net/projects/automysqlbackup/) script performs the dump and [S3cmd-sync](http://s3tools.org/s3cmd-sync) syncs the files to the `staging-spiritedmedia-com` S3 bucket.
 
 ### Install AutoMySQLBackup
 ```

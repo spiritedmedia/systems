@@ -76,7 +76,7 @@ sudo ee secure --auth
 # Clone our application repo containing wp-content stuff
 cd /var/www/spiritedmedia.com/htdocs/
 sudo git init
-sudo git remote add origin git@github.com:spiritedmedia/pedestal-beta-build.git
+sudo git remote add origin git@github.com:spiritedmedia/pedestal-build.git
 
 # Create a new SSH key so our server and talk to our private GitHub repo
 sudo ssh-keygen -t rsa -b 4096 -C "systems+ec2@spiritedmedia.com"
@@ -131,7 +131,7 @@ define('DB_USER', 'spiritedmediacom');
 define('DB_PASSWORD', '********');
 
 /** MySQL hostname */
-define('DB_HOST', '******.rds.amazonaws.com'); 
+define('DB_HOST', '******.rds.amazonaws.com');
 ```
 
 ```
