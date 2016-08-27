@@ -14,6 +14,9 @@ s3cmd sync --exclude-from /var/www/staging.spiritedmedia.com/scripts/sync.exclud
 # Reset file ownership
 chown -R www-data:www-data /var/www/staging.spiritedmedia.com/htdocs/
 
+# Flush Redis Cache
+redis-cli flushall
+
 # Restart Nginx and PHP7 for good measure
 ee stack restart --nginx --php7
 
