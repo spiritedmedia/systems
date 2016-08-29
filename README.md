@@ -13,7 +13,7 @@ Uploaded Media
 
 | S3 | KeyCDN | Mapped |
 | --- | --- | --- |
-|<https://spiritedmedia-com.s3.amazonaws.com>|KeyCDN CNAME|<https://spirited.media>|
+|<https://spiritedmedia-com.s3.amazonaws.com>|<http://spiritedmedia-4eec.kxcdn.com>|<https://a.spirited.media>|
 
 ## Staging URLs
 Protected behind a username/password dialog: `spirited` / `media`
