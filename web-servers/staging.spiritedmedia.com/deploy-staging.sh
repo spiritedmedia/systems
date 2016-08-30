@@ -6,7 +6,7 @@ cd /var/www/staging.spiritedmedia.com/htdocs/
 
 # Force git pull
 git fetch --all
-git reset --hard origin/pedestal-restructuring
+git reset --hard origin/master
 
 # Reset file ownership
 chown -R www-data:www-data /var/www/staging.spiritedmedia.com/htdocs/
