@@ -74,8 +74,8 @@ git clone git@github.com:spiritedmedia/spiritedmedia-build.git tmp/
 mv tmp/.git .
 rm -rf tmp/
 
-# Causes a 500 error since the same file is copied in /wp-content/object-cache.php
-mv /wp-content/plugins/wp-redis/object-cache.php /wp-content/object-cache.php
+# Move wp-redis' object-cache.php into place
+mv wp-content/plugins/wp-redis/object-cache.php wp-content/object-cache.php
 
 # If no branch is set then assume master
 if [ ! $CIRCLE_BRANCH  ]; then
