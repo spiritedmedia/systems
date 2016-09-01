@@ -9,4 +9,6 @@
 /var/www/staging.spiritedmedia.com/htdocs/wp-content/themes/twentysixteen/
 
 # These files aren't actually served on the frontend so we don't need to sync them
+/var/www/staging.spiritedmedia.com/htdocs/bin/
+/var/www/staging.spiritedmedia.com/htdocs/vendor/
 /var/www/staging.spiritedmedia.com/htdocs/wp-content/themes/pedestal/assets/vendor/

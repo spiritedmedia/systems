@@ -5,8 +5,10 @@
 *
 
 # The uploads directory is handled by another script
-/var/www/spiritedmedia.com/htdocs/wp-content/uploads/
-/var/www/spiritedmedia.com/htdocs/wp-content/themes/twentysixteen/
+/var/www/staging.spiritedmedia.com/htdocs/wp-content/uploads/
+/var/www/staging.spiritedmedia.com/htdocs/wp-content/themes/twentysixteen/
 
 # These files aren't actually served on the frontend so we don't need to sync them
-/var/www/spiritedmedia.com/htdocs/wp-content/themes/pedestal/assets/vendor/
+/var/www/staging.spiritedmedia.com/htdocs/bin/
+/var/www/staging.spiritedmedia.com/htdocs/vendor/
+/var/www/staging.spiritedmedia.com/htdocs/wp-content/themes/pedestal/assets/vendor/
