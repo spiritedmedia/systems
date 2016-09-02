@@ -12,7 +12,14 @@ git reset --hard origin/master
 chown -R www-data:www-data /var/www/spiritedmedia.com/htdocs/
 
 # Sync static theme files to S3 so they can be served through a CDN
-s3cmd sync --acl-public --exclude-from /var/www/spiritedmedia.com/scripts/sync.exclude --include-from /var/www/spiritedmedia.com/scripts/sync.include /var/www/spiritedmedia.com/htdocs/ s3://spiritedmedia-com/
+s3cmd sync \
+	--acl-public \
+	--no-mime-magic \
+	--guess-mime-type \
+	--storage-class REDUCED_REDUNDANCY \
+	--exclude-from /var/www/spiritedmedia.com/scripts/sync.exclude \
+	--include-from /var/www/spiritedmedia.com/scripts/sync.include \
+	/var/www/spiritedmedia.com/htdocs/ s3://spiritedmedia-com/
 
 # Flush Redis Cache
 redis-cli -h redis.spiritedmedia.com flushall
