@@ -1,7 +1,11 @@
 # Should be placed in /var/www/staging.spiritedmedia.com/scripts/ and run from the deploy-staging.sh script
 
-*.js
+# CSS/JavaScript
 *.css
+*.js
+*.json
+
+# Images
 *.png
 *.jpg
 *.jpeg
@@ -9,3 +13,12 @@
 *.gif
 *.ico
 *.svg
+
+# Fonts
+*.woff
+*.ttf
+*.otf
+
+# Other
+*.pdf
+*.xml
