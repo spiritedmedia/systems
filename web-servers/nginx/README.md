@@ -15,7 +15,9 @@ A lot of this was gleaned from the [HTML5 Boiler Plate Server Configs](https://g
 
 ## Global Configuration
 
-**mime.types** - Replaces /etc/nginx/mime.types provided by EasyEngine. The H5bp version has a few more definitions.
+**mime.types** - Replaces `/etc/nginx/mime.types` provided by EasyEngine. The H5bp version has a few more definitions.
+
+**wpcommon-php7-modified.conf** - Replaces `/etc/nginx/common/wpcommon-php7.conf` with our own modifications that can be preserved between ee updates. Make sure to change site config in `/etc/nginx/sites-available` to point to our modified version!
 
 ## Site Specific
 
