@@ -34,4 +34,10 @@ Uploaded Media: <https://staging-spiritedmedia-com.s3.amazonaws.com>
 | 2   | [billypenn.spiritedmedia.dev](http://billypenn.spiritedmedia.dev) | [billypenn.dev](http://billypenn.dev)  |     
 | 3   | [theincline.spiritedmedia.dev](http://theincline.spiritedmedia.dev) | [theincline.dev](http://theincline.dev) |
 
+# Resources
+ - [AWS Open Guide](https://github.com/open-guides/og-aws)
+ - [AWS in Plain English](https://www.expeditedssl.com/aws-in-plain-english)
+ - [ec2instances.info](http://www.ec2instances.info/)
+ - [rdsinstances.info](http://rdsinstances.info/)
+
 ![old-man-yells-at-cloud](https://cloud.githubusercontent.com/assets/867430/16280615/8676287c-388e-11e6-842f-5a02fcedb569.png)
