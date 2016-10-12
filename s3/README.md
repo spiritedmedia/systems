@@ -2,7 +2,7 @@
 
 We use S3 to store media uploads with the help of the [WP Offload S3](https://wordpress.org/plugins/amazon-s3-and-cloudfront/) plugin. This frees us from trying to sync media between multiple servers. We mask the S3 URL with our own domain so we can serve uploads via KeyCDN which is half the price of CloudFront.
 
-https://spirited.media --> KeyCDN --> https://spiritedmedia-com.s3.amazonaws.com
+https://a.spirited.media --> KeyCDN --> https://spiritedmedia-com.s3.amazonaws.com
 
 With KeyCDN, we can take advantage of HTTP/2 for faster downloads.
 
@@ -70,3 +70,7 @@ sync.include file:
 ```
 
 [WP Offload S3 Lite](https://wordpress.org/plugins/amazon-s3-and-cloudfront/) enables media files uploaded to the media library to be copied over to S3 and synced. 
+
+# Backing Up S3 Buckets
+
+Usually most websites backup their stuff to S3. For us we're storing our static media on S3. Rather than backup to another S3 bucket we sync the S3 bucket with our server whenever we perform updates. This is handled by running a shell script at `/var/www/spiritedmedia.com/scripts/sync-s3-to-uploads.sh` This script will copy the media from S3 to the local stoage of the EC2 instance and provide a backup if the media is accidentally deleted from the S3 bucket and KeyCDN has lost its copy.
