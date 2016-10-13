@@ -11,12 +11,12 @@ Use an HVM AMI not a PV AMI. Apparently HVM is better. See [http://docs.aws.amaz
 ## User Data
 ```
 #!/bin/bash
-source /var/www/staging.spiritedmedia.com/scripts/deploy-staging.sh
+source /var/www/spiritedmedia.com/scripts/deploy-production.sh
 ```
 
 ## Tags
-- Name: Staging - Spirited Media
-- Environment: Staging
+- Name: Production - Spirited Media
+- Environment: Production
 
 ## Security Groups
 - Web Server - Prod - Spirited Media (Enables HTTP traffic on Port 80)
