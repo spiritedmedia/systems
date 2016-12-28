@@ -15,6 +15,7 @@
 *.svg
 
 # Fonts
+*.woff2
 *.woff
 *.ttf
 *.otf
