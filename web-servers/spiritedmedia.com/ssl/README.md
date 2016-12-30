@@ -58,5 +58,6 @@ if ( 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO'] ) {
 If we don't do this then an endless redirect happens in `wp-login.php` due to `is_ssl()` returning `false`.
 
 ## Resources
+- [Stackoverflow thread on conditional logic for redirecting non-secure requests](http://serverfault.com/a/791052/70987)
 - [SSL Labs Test Results](https://www.ssllabs.com/ssltest/analyze.html?d=billypenn.com)
 
