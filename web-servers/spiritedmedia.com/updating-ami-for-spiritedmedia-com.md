@@ -8,6 +8,8 @@ From time to time we need to make changes to the base image we use to start new 
 ## Create a Maintenance Server
 This is a server based off of the latest server image that we will make changes to and save a new server image.
 
+![screen shot 2017-03-07 at 11 41 07 am](https://cloud.githubusercontent.com/assets/867430/23671619/e6607dd4-0339-11e7-9cd7-e7d81bdf136d.jpg)
+
 - Log on to https://aws.spiritedmedia.com
 - Go to the [EC2 Dashboard](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1)
 - In the left sidebar find _Images_ --> _AMIs_
@@ -40,6 +42,7 @@ Advanced Details: Enter Userdata as text
 #!/bin/bash
 source /var/www/spiritedmedia.com/scripts/deploy-production.sh
 ```
+<img width="907" alt="image 2017-03-07 at 10 19 47" src="https://cloud.githubusercontent.com/assets/867430/23671481/631203a8-0339-11e7-850b-3a19e0dfeba9.png">
 
 ### Step 4 Add Storage
 80GB General Purpose SSD (GP2)
@@ -60,6 +63,9 @@ This controls what ports are opened on the server + grants access to certain IP 
  - Assign a security group: Select an existing security group
  - [x] Prod - SSH Access (This grants SSH access from whitelisted IPs)
  - [x] Web Server - Prod - Spirited Media (Opens certain ports needed to serve traffic)
+ 
+ 
+<img width="1430" alt="image 2017-03-07 at 10 19 15" src="https://cloud.githubusercontent.com/assets/867430/23671500/7eaa05d4-0339-11e7-9b09-804ef26c456a.png">
 
 
 ### Step 7 Review Instance Launch
@@ -109,6 +115,8 @@ Go to `/var/www/spiritedmedia.com/scripts`. Run `sudo ./sync-s3-to-uploads.sh`. 
 
 ## Make a New AMI Image
 
+<img width="1036" alt="image 2017-03-07 at 10 35 20" src="https://cloud.githubusercontent.com/assets/867430/23671543/a1e00bfc-0339-11e7-888f-83708362f96c.png">
+
  - Go to the [EC2 Dashboard](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1)
  - Select your maintenance server and select _Image_ --> _Create Image_ from the _Actions_ dropdown
  - Image name: `spiritedmedia.com-2017-03-07`
@@ -124,6 +132,8 @@ Go to `/var/www/spiritedmedia.com/scripts`. Run `sudo ./sync-s3-to-uploads.sh`. 
 
 ## Creating a New Launch Configuration
 Launch configurations are associated with autoscaling groups. It tells the autoscale group the settings for new servers that should be spun up.
+
+<img width="862" alt="image 2017-03-07 at 10 42 58" src="https://cloud.githubusercontent.com/assets/867430/23671571/c1c91986-0339-11e7-8c97-9690913b33cd.png">
 
 - Go to the [_Launch Configurations_ section](https://console.aws.amazon.com/ec2/autoscaling/home?region=us-east-1#LaunchConfigurations:) under _Auto Scaling_ in the left menu
 - Select the latest Launch Configuration and select _Copy launch configuration_ from the Actions drop down
@@ -189,6 +199,8 @@ We're going to one-by-one remove old instances and replace them with new instanc
  - Select a running instance and choose _Detach_ from the Actions dropdown
  - [x] _Add a new instance to the Auto Scaling group to balance the load_ from the modal
  - Click the _Detach Instance_ button
+ 
+ <img width="1210" alt="image 2017-03-07 at 10 46 20" src="https://cloud.githubusercontent.com/assets/867430/23671590/d2b2263e-0339-11e7-8884-9fc0e42afda4.png">
  
  AWS will remove the instance from the autoscaling group and spin up a new one to take its place. Monitor the progress of the new instance over in the [EC2 dashboard](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:sort=instanceState). 2/2 status checks need to be completed on the new instance before the instance will accept traffic. Once it is accepting traffic, replace the other, older instance from the autoscaling group.
  
