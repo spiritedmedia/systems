@@ -1,0 +1,21 @@
+### Email Tests
+
+- [ ] [Daily Newsletter: Subscribe](http://dev-billypennqa.pantheonsite.io/) (Right Rail)
+- [ ] [Daily Newsletter: Subscribe](http://dev-billypennqa.pantheonsite.io/) (Click on email icon in header)
+- [ ] Daily Newsletter: Send Test Email
+  - Publish new Newsletter
+  - Send test email
+- [ ] Daily Newsletter: Send Newsletter
+  - Publish new Newsletter
+  - Send to n subscribers
+- [ ] Daily Newsletter: Unsubscribe (Click on 'unsubscribe' link within received email)
+- [ ] [Story: Follow](http://dev-billypennqa.pantheonsite.io/2014/11/13/dead-pgw-deal/)
+  - Click "Follow This"
+- [ ] Story: Send Update
+	- Add entities to Story
+	- Edit Story, send update to n followers
+- [ ] Story: Unsubscribe (Click on 'unsubscribe' link within received email)
+- [ ] Breaking News: Send
+  - [ ] Publish article
+  - [ ] Send test email
+  - [ ] Send email to breaking news subscribers
