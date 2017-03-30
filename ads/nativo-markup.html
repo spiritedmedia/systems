@@ -1,0 +1,282 @@
+<!-- Stream - Standard -->
+<div class="c-stream__item--advert c-stream__item js-stream-item @CustomCssClass" data-source-external>
+    <div class="c-stream__item__inner c-overview--advert c-overview--thumbnail c-overview o-media o-media--responsive">
+        <div class="c-figure c-figure--img wp-caption c-stream__item__img c-overview__img o-media__img">
+            <a class="c-figure__link" href="@Url" title="@Title" target="_blank" rel="nofollow">
+                <img src="@Image">
+            </a>
+        </div>
+        <div class="c-stream__item__overline c-overview__overline c-heading--overline">
+            <h2 class="c-heading__title">
+                <a class="c-heading__link" href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    @Disclaimer
+                </a>
+            </h2>
+        </div>
+        <div class="c-stream__item__body o-media__body">
+            <h1 class="c-stream__item__title c-overview__title">
+                <a class="c-stream__item__link c-overview__link" href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    @Title
+                </a>
+            </h1>
+        </div>
+        <div class="c-overview__meta c-meta-info--embed c-meta-info--stream c-meta-info">
+            <div class="c-meta-info__icon--standalone c-meta-info__icon c-meta-info__item hidden-for-medium-up">
+                <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    <i class="icon fa fa-external-link"></i>
+                </a>
+            </div>
+            <div class="c-meta-info__stack c-meta-info__item">
+                <div class="c-meta-info__name c-meta-info__stack__item c-meta-info__stack__mover">
+                    <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                        @Author
+                    </a>
+                </div>
+                <div class="c-meta-info__stack__item">
+                    <span class="c-meta-info__timestamp">@Datetime</span>
+                </div>
+            </div>
+            <div class="c-meta-info__source c-meta-info__item c-meta-info__mover">
+                <div class="c-meta-info__name c-meta-info__source__item">
+                    <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                        @Author
+                    </a>
+                </div>
+                <div class="c-meta-info__icon c-meta-info__source__item">
+                    <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                        <i class="icon fa fa-external-link"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @trackers
+</div>
+
+
+<!-- Stream - Video -->
+<div class="c-stream__item--advert c-stream__item js-stream-item @CustomCssClass" data-source-external>
+    <div class="c-stream__item__inner c-overview--thumbnail c-overview--advert c-overview o-media o-media--responsive">
+        <div class="c-figure c-figure--img wp-caption c-stream__item__img c-overview__img o-media__img">
+            <a class="c-figure__link" href="@Url" title="@Title" target="_blank" rel="nofollow">
+                <img alt="@Title" src="@Image" title="@Title">
+                <div class="ntv-play-overlay">
+                    <img class="ntv-video-play-button" src="https://ntvcdn-a.akamaihd.net/images/VideoPlayIcon.svg">
+                </div>
+            </a>
+        </div>
+        <div class="c-stream__item__overline c-overview__overline c-heading--overline">
+            <h2 class="c-heading__title">
+                <a class="c-heading__link" href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    @Disclaimer
+                </a>
+            </h2>
+        </div>
+        <div class="c-stream__item__body o-media__body">
+            <h1 class="c-stream__item__title c-overview__title">
+                <a class="c-stream__item__link c-overview__link" href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    @Title
+                </a>
+            </h1>
+        </div>
+        <div class="c-overview__meta c-meta-info--embed c-meta-info--stream c-meta-info">
+            <div class="c-meta-info__icon--standalone c-meta-info__icon c-meta-info__item hidden-for-medium-up">
+                <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    <i class="icon fa fa-external-link"></i>
+                </a>
+            </div>
+            <div class="c-meta-info__stack c-meta-info__item">
+                <div class="c-meta-info__name c-meta-info__stack__item c-meta-info__stack__mover">
+                    <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                        @Author
+                    </a>
+                </div>
+                <div class="c-meta-info__stack__item">
+                    <span class="c-meta-info__timestamp">@Datetime</span>
+                </div>
+            </div>
+            <div class="c-meta-info__source c-meta-info__item c-meta-info__mover">
+                <div class="c-meta-info__name c-meta-info__source__item">
+                    <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                        @Author
+                    </a>
+                </div>
+                <div class="c-meta-info__icon c-meta-info__source__item">
+                    <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                        <i class="icon fa fa-external-link"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @trackers @ExpandedVideoTemplate
+    <div class="ntv-video-open">
+        <div class="ntv-video-expander @LinkCssClass">
+            <div class="ntv-icon-expander"></div>
+        </div>
+    </div>
+</div>
+
+
+<!-- AP - BOAP - Standard -->
+<div class="nativo-unit @CustomCssClass" data-source-external>
+    <div class="c-overview--thumbnail c-overview--advert c-overview o-media o-media--responsive">
+        <div class="c-figure c-figure--img wp-caption c-overview__img o-media__img">
+            <a class="c-figure__link" href="@Url" title="@Title" target="_blank" rel="nofollow">
+                <img src="@Image">
+            </a>
+        </div>
+        <div class="c-overview__overline c-heading--overline">
+            <h2 class="c-heading__title">
+                <a class="c-heading__link" href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    @Disclaimer
+                </a>
+            </h2>
+        </div>
+        <div class="o-media__body">
+            <h1 class="c-overview__title">
+                <a class="c-overview__link" href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    @Title
+                </a>
+            </h1>
+        </div>
+        <div class="c-overview__meta c-meta-info--embed c-meta-info--stream c-meta-info">
+            <div class="c-meta-info__icon--standalone c-meta-info__icon c-meta-info__item hidden-for-medium-up">
+                <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    <i class="icon fa fa-external-link"></i>
+                </a>
+            </div>
+            <div class="c-meta-info__stack c-meta-info__item">
+                <div class="c-meta-info__name c-meta-info__stack__item c-meta-info__stack__mover">
+                    <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                        @Author
+                    </a>
+                </div>
+                <div class="c-meta-info__stack__item">
+                    <span class="c-meta-info__timestamp">@Datetime</span>
+                </div>
+            </div>
+            <div class="c-meta-info__source c-meta-info__item  c-meta-info__mover">
+                <div class="c-meta-info__name c-meta-info__source__item">
+                    <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                        @Author
+                    </a>
+                </div>
+                <div class="c-meta-info__icon c-meta-info__source__item">
+                    <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                        <i class="icon fa fa-external-link"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @trackers
+</div>
+
+
+<!-- AP - BOAP - Video -->
+<div class="nativo-unit @CustomCssClass" data-source-external>
+    <div class="c-overview--thumbnail c-overview--advert c-overview o-media o-media--responsive">
+        <div class="c-figure c-figure--img wp-caption c-stream__item__img c-overview__img o-media__img">
+            <a class="c-figure__link" href="@Url" title="@Title" target="_blank" rel="nofollow">
+                <img alt="@Title" src="@Image" title="@Title">
+                <div class="ntv-play-overlay">
+                    <img class="ntv-video-play-button" src="https://ntvcdn-a.akamaihd.net/images/VideoPlayIcon.svg">
+                </div>
+            </a>
+        </div>
+        <div class="c-overview__overline c-heading--overline">
+            <h2 class="c-heading__title">
+                <a class="c-heading__link" href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    @Disclaimer
+                </a>
+            </h2>
+        </div>
+        <div class="o-media__body">
+            <h1 class="c-overview__title">
+                <a class="c-overview__link" href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    @Title
+                </a>
+            </h1>
+        </div>
+        <div class="c-overview__meta c-meta-info--embed c-meta-info--stream c-meta-info">
+            <div class="c-meta-info__icon--standalone c-meta-info__icon c-meta-info__item hidden-for-medium-up">
+                <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    <i class="icon fa fa-external-link"></i>
+                </a>
+            </div>
+            <div class="c-meta-info__stack c-meta-info__item">
+                <div class="c-meta-info__name c-meta-info__stack__item c-meta-info__stack__mover">
+                    <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                        @Author
+                    </a>
+                </div>
+                <div class="c-meta-info__stack__item">
+                    <span class="c-meta-info__timestamp">@Datetime</span>
+                </div>
+            </div>
+            <div class="c-meta-info__source c-meta-info__item  c-meta-info__mover">
+                <div class="c-meta-info__name c-meta-info__source__item">
+                    <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                        @Author
+                    </a>
+                </div>
+                <div class="c-meta-info__icon c-meta-info__source__item">
+                    <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                        <i class="icon fa fa-external-link"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @trackers @ExpandedVideoTemplate
+    <div class="ntv-video-open">
+        <div class="ntv-video-expander @LinkCssClass">
+            <div class="ntv-icon-expander"></div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Rail -->
+<div class="widget nativo-unit @CustomCssClass" data-source-external>
+    <div class="c-overview--advert c-overview">
+        <div class="c-figure c-figure--img wp-caption c-stream__item__img c-overview__img">
+            <a class="c-figure__link" href="@Url" title="@Title" target="_blank" rel="nofollow">
+                <img src="@Image">
+            </a>
+        </div>
+        <div class="c-stream__item__overline c-overview__overline c-heading--overline">
+            <h2 class="c-heading__title">
+                <a class="c-heading__link" href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    @Disclaimer
+                </a>
+            </h2>
+        </div>
+        <div class="c-stream__item__body">
+            <h1 class="c-stream__item__title c-overview__title">
+                <a class="c-stream__item__link c-overview__link" href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    @Title
+                </a>
+            </h1>
+        </div>
+        <div class="c-overview__meta c-meta-info--always-stacked  c-meta-info--embed c-meta-info--stream c-meta-info">
+            <div class="c-meta-info__icon--standalone c-meta-info__icon c-meta-info__item">
+                <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                    <i class="icon fa fa-external-link"></i>
+                </a>
+            </div>
+            <div class="c-meta-info__stack c-meta-info__item">
+                <div class="c-meta-info__name c-meta-info__stack__item  c-meta-info__stack__mover">
+                    <a href="@Url" title="@Title" rel="nofollow" target="_blank">
+                        @Author
+                    </a>
+                </div>
+                <div class="c-meta-info__stack__item">
+                    <span class="c-meta-info__timestamp">@Datetime</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    @trackers
+</div>
