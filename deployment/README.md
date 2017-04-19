@@ -32,5 +32,5 @@ The appsec.yml file prohibits calling arbitrary scripts. A stub shell script is 
 
 ## Notifications
 
-Event notifications are sent to [Slack via an AWS Lambda function](https://medium.com/cohealo-engineering/how-set-up-a-slack-channel-to-be-an-aws-sns-subscriber-63b4d57ad3ea) when a deploy starts, fails, or succeeds. 
+Event notifications are sent to [Slack via an AWS Lambda function](https://medium.com/cohealo-engineering/how-set-up-a-slack-channel-to-be-an-aws-sns-subscriber-63b4d57ad3ea) when a deploy starts, fails, or succeeds. See `snsToSlack.js`
 
