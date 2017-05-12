@@ -36,6 +36,9 @@ if ( $http_x_forwarded_proto != 'https' ) {
 if ( $request_uri = '/health-check.php' ) {
   set $redirect_to_https 0;
 }
+if ($scheme = https) {
+  set $redirect_to_https 0;
+}
 if ( $redirect_to_https = 1 ) {
   return 301 https://$host$request_uri;
 }
