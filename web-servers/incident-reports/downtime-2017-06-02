@@ -1,0 +1,23 @@
+# 6/2/2017 Website Impairment Incident
+
+## What happened?
+Report of WordPress slowness (10s of seconds per page request) and eventual site downtime (5 minutes or less).
+
+## Solution
+Rebooting the RDS database to clear an excessive amount of database connections putting strain on DB resources.
+
+## Changes Made
+Added database connection and latency graphs to our CloudWatch dashboard to better identify problems in the future.
+
+## Detailed Timeline of Events
+At 11:19am reports of WordPress slowness were reported to the #bugs Slack channel. Russell began investigating and confirmed network traffic was dropping.
+
+
+
+Initial guess was a networking issue with Amazon between the Elastic Load Balancer and the EC2 servers. CPU utilization on the EC2 servers was normal. 
+ 
+Reports of 504 Gateway Timeout Errors continued through 12:30pm. Russell began looking through other metrics in CloudWatch and noticed a sharp spike in RDS database connections. 
+ 
+We peaked at 190 database connections. Normal is in the range of 1-4 database connections. The extra load on the database caused swap usage (saving/reading data from disk, much slower than RAM) which resulted in an increase in latency. Requests that bypassed our Redis full page cache were beginning to take tens of seconds to complete. 
+ 
+At 12:33pm the database was restarted and a failover to our standby database was activated. Website requests began returning to normal and the database connections stabilized at normal levels. The cause for the spike in database connections is still unknown. Total downtime as monitored by Status Cake was 5 minutes or less. 
