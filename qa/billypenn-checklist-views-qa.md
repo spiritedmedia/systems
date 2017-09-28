@@ -28,6 +28,10 @@
 - [ ] [Who's Next](https://staging.billypenn.com/2017/03/01/whos-next-bartenders-15-young-drink-maestros-elevating-phillys-booze-game/)
 
 
+### Footnotes
+- [ ] [The numbered kind](https://staging.billypenn.com/2016/10/05/why-pennsylvanias-statewide-offices-are-almost-always-white-and-male/#footnote-53892-2)
+- [ ] [The correction at the bottom of the page kind](https://staging.billypenn.com/2016/10/26/hashtag-war-dock-street-takes-on-budweisers-philly-campaign/)
+
 #### Single Clusters
 
 - [ ] [Story](https://staging.billypenn.com/stories/muslim-travel-ban/)
