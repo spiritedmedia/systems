@@ -1,9 +1,9 @@
 # Initial Image
-Create a new instance based off of an Ubuntu AMI `Ubuntu Server 14.04 LTS (HVM), SSD Volume Type (64-bit)`
+Create a new instance based off of an Ubuntu AMI `Ubuntu Server 18.04 LTS (HVM), SSD Volume Type (64-bit)`
 
 Use an HVM AMI not a PV AMI. Apparently HVM is better. See [http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/virtualization_types.html](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/virtualization_types.html)
 
- - Instance type: `t2.micro` for testing, `t2.medium` for production
+ - Instance type: `t2.micro` for staging, `t2.medium` for production
  - VPC: Stage - Spirited Media
  - IAM role: CodeDeploy-EC2
  - Key pair name: EC2 - Stage - Spirited Media
@@ -19,7 +19,7 @@ source /var/www/staging.spiritedmedia.com/scripts/deploy-staging.sh
 - Environment: Staging
 
 ## Security Groups
-- Web Server - Stage - Spirited Media (Enables HTTP traffic on Port 80)
+- Web Server - Stage - Spirited Media (Enables HTTP traffic on Port 80, HTTPS on port 443)
 - Developer SSH (Enables SSH access for approved IPs)
 
 # Accessing the Initial Image
@@ -34,7 +34,7 @@ Host staging.spiritedmedia.com
 	User ubuntu
 	IdentityFile ~/.ssh/spirited-media/EC2-Stage-SpiritedMedia.pem
 ```
-Now simply type `ssh staging.spiritedmedia.com` in your terminal to connect to the machine.
+Now type `ssh staging.spiritedmedia.com` in your terminal to connect to the machine.
 
 # Initial Set-up
 After SSHing into the instance for the first time we need to set things up.
@@ -46,7 +46,7 @@ sudo apt-get update
 # Install AWS CodeDeploy Agent
 # See http://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-run-agent.html#how-to-run-agent-install-ubuntu
 sudo apt-get install python-pip
-sudo apt-get install ruby2.0
+sudo apt-get install ruby
 
 # Note: You may need to change the subdomain if you're in a different AWS region
 # See http://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-run-agent.html#how-to-run-agent-install-ubuntu
@@ -106,8 +106,32 @@ Now login to WordPress and set things up the way they need to be set-up (delete 
 Recommended additions to the wp-config.php file:
 
 ```
-// For the Domain Mapping plugin, Mercator
+define( 'WPMU_ACCEL_REDIRECT', true );
+define( 'WP_CACHE_KEY_SALT', 'staging.spiritedmedia.com:' );
+define( 'EMPTY_TRASH_DAYS', 1 );
+
+// For the mercator Domain mapping plugin
 define( 'SUNRISE', 'on' );
+
+// We use an external cron See https://github.com/spiritedmedia/spiritedmedia/pull/2548 
+define( 'DISABLE_WP_CRON', true );
+
+define( 'WP_DEBUG', true );
+if ( WP_DEBUG ) {
+    // For analyzing database queries i.e. the Debug Bar plugin
+    define( 'SAVEQUERIES', true );
+
+    // Enable debug logging to the /wp-content/debug.log file
+    define( 'WP_DEBUG_LOG', true );
+}
+
+// Adding ?debug to the end of URLs will display PHP debug info
+if ( isset( $_GET['debug'] ) ) {
+    define( 'WP_DEBUG_DISPLAY', true );
+} else {
+   define( 'WP_DEBUG_DISPLAY', false );
+}
+
 
 // Add redis cache credentails for WP Redis plugin
 $redis_server = array(
@@ -116,9 +140,36 @@ $redis_server = array(
 );
 
 // S3 User access keys for WP Offload S3 Lite
-// See https://deliciousbrains.com/wp-offload-s3/doc/quick-start-guide/
 define( 'DBI_AWS_ACCESS_KEY_ID', '********************' );
-define( 'DBI_AWS_SECRET_ACCESS_KEY', '****************************************' );
+define( 'DBI_AWS_SECRET_ACCESS_KEY', '********************' );
+
+// AWS API Keys for AWS SES wp_mail() drop-in
+define( 'AWS_SES_WP_MAIL_REGION', 'us-east-1' );
+define( 'AWS_SES_WP_MAIL_KEY', '********************' );
+define( 'AWS_SES_WP_MAIL_SECRET', '********************' );
+
+// MailChimp API Credentials
+define( 'MAILCHIMP_API_KEY', '********************' );
+
+define( 'YOUTUBE_DATA_API_KEY', '********************' );
+define( 'TACHYON_URL', 'https://' . $_SERVER['HTTP_HOST'] . '/wp-content/uploads' );
+
+define( 'WP_ALLOW_MULTISITE', true );
+define( 'MULTISITE', true );
+define( 'SUBDOMAIN_INSTALL', true );
+$base = '/';
+define( 'DOMAIN_CURRENT_SITE', 'staging.spiritedmedia.com' );
+define( 'PATH_CURRENT_SITE', '/' );
+define( 'SITE_ID_CURRENT_SITE', 1 );
+define( 'BLOG_ID_CURRENT_SITE', 1 );
+
+define( 'WP_ENV', 'development' );
+
+// Header Juggling
+if ( ! empty( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO'] ) {
+  $_SERVER['HTTPS'] = 'on';
+  $_SERVER['SERVER_PORT'] = '443';
+}
 
 ```
 
