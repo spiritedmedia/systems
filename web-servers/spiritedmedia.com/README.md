@@ -1,5 +1,5 @@
 # Initial Image
-Create a new instance based off of an Ubuntu AMI `Ubuntu Server 14.04 LTS (HVM), SSD Volume Type (64-bit)`
+Create a new instance based off of an Ubuntu AMI `Ubuntu Server 18.04 LTS (HVM), SSD Volume Type (64-bit)`
 
 Use an HVM AMI not a PV AMI. Apparently HVM is better. See [http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/virtualization_types.html](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/virtualization_types.html)
 
@@ -19,7 +19,7 @@ source /var/www/spiritedmedia.com/scripts/deploy-production.sh
 - Environment: Production
 
 ## Security Groups
-- Web Server - Prod - Spirited Media (Enables HTTP traffic on Port 80)
+- Web Server - Prod - Spirited Media (Enables HTTP traffic on port 80, HTTPS traffic on port 443)
 
 # Accessing the Initial Image
 Find the Public DNS and Public IP information for the instance from the AWS console.
@@ -33,7 +33,7 @@ Host spiritedmedia.com
 	User ubuntu
 	IdentityFile ~/.ssh/spirited-media/EC2-Prod-SpiritedMedia.pem
 ```
-Now simply type `ssh spiritedmedia.com` in your terminal to connect to the machine.
+Now type `ssh spiritedmedia.com` in your terminal to connect to the machine.
 
 # Initial Set-up
 After SSHing into the instance for the first time we need to set things up.
@@ -45,7 +45,7 @@ sudo apt-get update
 # Install AWS CodeDeploy Agent
 # See http://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-run-agent.html#how-to-run-agent-install-ubuntu
 sudo apt-get install python-pip
-sudo apt-get install ruby2.0
+sudo apt-get install ruby
 
 # Note: You may need to change the subdomain if you're in a different AWS region
 # See http://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-run-agent.html#how-to-run-agent-install-ubuntu
@@ -102,44 +102,91 @@ Recommended additions to the wp-config.php file:
 
 Check to make sure `WP_ALLOW_MULTISITE` isn't defined twice!
 
-```
-// For the Domain Mapping plugin, Mercator
-define( 'SUNRISE', 'on' );
-```
+Set `define('DB_CHARSET', 'utf8mb4');` for UTF8 Multibyte characters (aka emojis) to work.
 
 ```
-// Add redis cache credentails for WP Redis plugin
-// redis.spiritedmedia.com is set to mirror the Redis Endpoint in the ElasticCache console
+define( 'WPMU_ACCEL_REDIRECT', true );
+
+// Don't allow WordPress to auto update itself
+// We take care of that via baking new AMIs
+define( 'WP_AUTO_UPDATE_CORE', false );
+define( 'DISALLOW_FILE_MODS', true );
+
+// We use an external cron See https://github.com/spiritedmedia/spiritedmedia/pull/2548 
+define( 'DISABLE_WP_CRON', true );
+define( 'WP_POST_REVISIONS', 30 );
+
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', true );
+
+// URLs with ?debug=!wr8KCsv9V7% in them are shown PHP debugging info + SQL query info
+if ( isset( $_GET['debug'] ) && $_GET['debug'] == '!wr8KCsv9V7%' ) {
+    define( 'WP_DEBUG_DISPLAY', true );
+    define( 'SAVEQUERIES', true );
+} else {
+    define( 'WP_DEBUG_DISPLAY', false );
+}
+
+// redis.spiritedmedia.com is mapped to the ElastiCache cluster endpoint
+// This allows us to make changes to these without needing to bake a new AMI
+// $redis_server is for our Object Cache plugin
 $redis_server = array(
     'host' => 'redis.spiritedmedia.com',
     'port' => 6379,
 );
-```
 
-```
-// Add the RDS database credentials. Don't use the local database set-up by EasyEngine.
+// These are for are Redis full page cache purging plugin
+define( 'REDIS_CACHE_PURGE_HOST', 'redis.spiritedmedia.com' );
+define( 'REDIS_CACHE_PURGE_PORT', '6379' );
 
-// ** MySQL settings ** //
+// AWS API Keys for S3 Uploads plugin
+define( 'S3_UPLOADS_BUCKET', 'spiritedmedia-com' );
+define( 'S3_UPLOADS_KEY', '********************' );
+define( 'S3_UPLOADS_SECRET', '********************' );
+define( 'S3_UPLOADS_REGION', 'us-east-1' );
+define( 'S3_UPLOADS_BUCKET_URL', 'https://a.spirited.media' );
 
-/** The name of the database for WordPress */
-define('DB_NAME', 'spiritedmediacom');
+define( 'TACHYON_URL', S3_UPLOADS_BUCKET_URL . '/wp-content/uploads' );
 
-/** MySQL database username */
-define('DB_USER', 'spiritedmediacom');
+// AWS API Keys for AWS SES wp_mail() drop-in
+define( 'AWS_SES_WP_MAIL_REGION', 'us-east-1' );
+define( 'AWS_SES_WP_MAIL_KEY', '********************' );
+define( 'AWS_SES_WP_MAIL_SECRET', '********************' );
 
-/** MySQL database password */
-define('DB_PASSWORD', '********');
+// MailChimp API Credentials for Prod
+define( 'MAILCHIMP_API_KEY', '********************' );
 
-/** MySQL hostname */
-define('DB_HOST', '******.rds.amazonaws.com');
-```
+// YouTube Data API Key
+define( 'YOUTUBE_DATA_API_KEY', '********************' );
 
-```
-// S3 User access keys for WP Offload S3 Lite
-// See https://deliciousbrains.com/wp-offload-s3/doc/quick-start-guide/
-define( 'DBI_AWS_ACCESS_KEY_ID', '********************' );
-define( 'DBI_AWS_SECRET_ACCESS_KEY', '****************************************' );
+# For the Mercator Domain Mapping plugin
+define( 'SUNRISE', 'on' );
 
+define( 'WP_ALLOW_MULTISITE', true );
+define( 'MULTISITE', true );
+define( 'SUBDOMAIN_INSTALL', true );
+$base = '/';
+define( 'DOMAIN_CURRENT_SITE', 'spiritedmedia.com' );
+define( 'PATH_CURRENT_SITE', '/' );
+define( 'SITE_ID_CURRENT_SITE', 1 );
+define( 'BLOG_ID_CURRENT_SITE', 1 );
+
+if ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+  /*
+  Set $_SERVER variables if the request is being passed from an HTTPS request from the load balancer. Otherwise is_ssl() doesn't work and we get endless redirects
+  */
+  if ( 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO'] ) {
+    $_SERVER['HTTPS'] = 'on';
+    $_SERVER['SERVER_PORT'] = '443';
+  }
+  /*
+  Set $_SERVER['REMOTE_ADDR'] to the real IP address of the requester
+  See https://core.trac.wordpress.org/ticket/9235#comment:40
+  */
+  $parts = explode( ',', $_SERVER['HTTP_X_FORWARDED_FOR'] );
+  $_SERVER['REMOTE_ADDR'] = $parts[0];
+  unset( $parts );
+}
 ```
 
 ## Set-up the Deploy Script
@@ -153,18 +200,10 @@ Save an AMI via the AWS Console once everything is in it's right place. The AMI 
 EasyEngine makes it easy to handle full page caching via Redis. See [EasyEngine 3.3 released with Full-Page Redis Cache support](https://easyengine.io/blog/easyengine-3-3-full-page-redis-cache/)
 
 - Cache TTL is 4 hours
-- Caching behavior is controlled set through the [Nginx Helper plugin](https://wordpress.org/plugins/nginx-helper/) in the Network Settings: <http://spiritedmedia.com/wp-admin/network/settings.php?page=nginx>
-- Be sure to update the hostname value to `redis.spiritedmedia.com`
+- Caching behavior is controlled through the [Redis Full Page Cache Purger plugin](https://github.com/spiritedmedia/redis-full-page-cache-purger) 
+- Be sure to add `define( 'REDIS_CACHE_PURGE_HOST', 'redis.spiritedmedia.com' );` to `wp-config.php`
 - Only requests to PHP pages are cached in Redis
-- Requests with query strings in the URL are not cached
-- You can see what's cached using the [phpRedisAdmin tool](https://spiritedmedia.com:22222/cache/redis/phpRedisAdmin) (look for the `nginx-cache` key)
+- Requests with query strings in the URL are cached but some query parameters are ignored. See https://github.com/spiritedmedia/spiritedmedia/pull/3086
 - Check the `X-SRCache-Fetch-Status` header of the response in Dev tools to determine if the page was cached or not (HIT or MISS or BYPASS)
 
 <img width="678" alt="Look for X-SRCache-Fetch-Status" src="https://cloud.githubusercontent.com/assets/867430/17533469/d8069d7c-5e52-11e6-965e-3b1a68c54788.png">
-
-# Glossary
-**AMI** - Amazon Machine Image, Amazon's own virtual machine format
-
-**HVM** - Hardware Virtual Machine provides the ability to run an operating system directly on top of a virtual machine without any modification, as if it were run on the bare-metal hardware.
-
-**PV** - Paravirtual guests can run on host hardware that does not have explicit support for virtualization, but they cannot take advantage of special hardware extensions such as enhanced networking or GPU processing.
