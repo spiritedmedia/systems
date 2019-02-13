@@ -192,8 +192,13 @@ if ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 ## Set-up the Deploy Script
 Copy `deploy-production.sh` to `/var/www/spiritedmedia.com/scripts/deploy-production.sh`. This is used by AWS CodeDeploy to update the application from our build repo so the server is running the latest version of the code.
 
+## Update OS Packages
+Every time you bake a new AMI it is a good idea to update the operating system packages and purge old kernals that take up space. This can be done by running `~/.update-os.sh`.
+
 # Create an AMI
 Save an AMI via the AWS Console once everything is in it's right place. The AMI will be used to launch new instances for autoscaling. This also provides a backup to the server before major upgrades.
+
+See [updating-ami-for-spiritedmedia-com.md](updating-ami-for-spiritedmedia-com.md) for steps on baking and deploying a new AMI.
 
 # Full Page Caching with Redis and ElastiCache
 
@@ -205,5 +210,6 @@ EasyEngine makes it easy to handle full page caching via Redis. See [EasyEngine 
 - Only requests to PHP pages are cached in Redis
 - Requests with query strings in the URL are cached but some query parameters are ignored. See https://github.com/spiritedmedia/spiritedmedia/pull/3086
 - Check the `X-SRCache-Fetch-Status` header of the response in Dev tools to determine if the page was cached or not (HIT or MISS or BYPASS)
+- You can flush the entire Redis cache by SSHing into the server and running `./flush-redis.sh`
 
 <img width="678" alt="Look for X-SRCache-Fetch-Status" src="https://cloud.githubusercontent.com/assets/867430/17533469/d8069d7c-5e52-11e6-965e-3b1a68c54788.png">
