@@ -20,6 +20,6 @@ Provides full access to all buckets via the AWS Management Console.
 
 via https://deliciousbrains.com/wp-offload-s3/doc/quick-start-guide/
 
-## s3-spiritedmedia-com-readWriteObjects
+## S3-spiritedmedia-com-readWriteObjects
 
 Read-Write access for objects for the spiritedmedia-com bucket
