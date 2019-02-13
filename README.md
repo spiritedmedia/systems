@@ -12,9 +12,9 @@ AWS Console login: <https://aws.spiritedmedia.com>
 
 Uploaded Media
 
-| S3 | KeyCDN | Mapped |
-| --- | --- | --- |
-|<https://spiritedmedia-com.s3.amazonaws.com>|<https://spiritedmedia-4eec.kxcdn.com>|<https://a.spirited.media>|
+| S3 | CloudFront w/ Lambda@Edge | BunnyCDN | Mapped |
+| --- | --- | --- | --- |
+|<https://spiritedmedia-com.s3.amazonaws.com>| <https://d9nsjsuh3e2lm.cloudfront.net> |<https://spiritedmedia.b-cdn.net.com>|<https://a.spirited.media>|
 
 ## Staging URLs
 Protected behind a username/password dialog: `spirited` / `media`
