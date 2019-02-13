@@ -189,6 +189,49 @@ if ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 }
 ```
 
+## AWS CloudWatch Log Monitoring
+We can send server logs to CloudWatch where they can be analyzed in one central location. First you need to [install the AWS CloudWatch agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html). Then we can update the configuration to point to the log files we want to monitor. Edit `/var/awslogs/etc/awslogs.conf`
+
+```
+[/var/nginx/spiritedmedia.com.error.log]
+datetime_format = %Y/%m/%d %H:%M:%S
+file = /var/log/nginx/spiritedmedia.com.error.log
+buffer_duration = 5000
+log_stream_name = {instance_id}
+initial_position = start_of_file
+log_group_name = /var/log/nginx/spiritedmedia.com.error.log
+
+[/var/log/nginx/error.log]
+datetime_format = %Y/%m/%d %H:%M:%S
+file = /var/log/nginx/error.log
+buffer_duration = 5000
+log_stream_name = {instance_id}
+initial_position = start_of_file
+log_group_name = /var/log/nginx/error.log
+
+[/var/nginx/spiritedmedia.com.access.log]
+datetime_format = %d/%b/%Y %H:%M:%S %z
+file = /var/log/nginx/spiritedmedia.com.access.log
+buffer_duration = 5000
+log_stream_name = {instance_id}
+initial_position = start_of_file
+log_group_name = /var/log/nginx/spiritedmedia.com.access.log
+
+[/var/www/spiritedmedia.com/htdocs/wp-content/debug.log]
+datetime_format = %d-%b-%Y %H:%M:%S
+time_zone = UTC
+file = /var/www/spiritedmedia.com/htdocs/wp-content/debug.log
+buffer_duration = 5000
+log_stream_name = {instance_id}
+initial_position = start_of_file
+log_group_name = /var/www/spiritedmedia.com/htdocs/wp-content/debug.log
+```
+Then restart the `awslogs` service: `sudo service awslogs restart`
+
+It might be a good idea to setup a cron job that resarts the awslogs service every day or so as it tends to stop sending logs after some time.
+
+See https://github.com/spiritedmedia/systems/issues/23 and https://github.com/spiritedmedia/systems/issues/31 
+
 ## Set-up the Deploy Script
 Copy `deploy-production.sh` to `/var/www/spiritedmedia.com/scripts/deploy-production.sh`. This is used by AWS CodeDeploy to update the application from our build repo so the server is running the latest version of the code.
 
