@@ -16,13 +16,13 @@ exports.handler = function(event, context) {
         console.log( "Not a JSON message..." );
         return false;
     }
-    
+
     var status = data.status;
     var appName = data.applicationName;
     var deployName = data.deploymentGroupName;
 
     var postData = {
-        "channel": "#botcountry",
+        "channel": "#prd-botcountry",
         "username": "AWS CodeDeploy",
         "text": "*" + event.Records[0].Sns.Subject + "*",
         "icon_emoji": ":truck:"
@@ -31,17 +31,20 @@ exports.handler = function(event, context) {
     var message = event.Records[0].Sns.Message;
     var slackMessage = "¯\\_(ツ)_/¯";
     var severity = "warning";
-    
+
     if( status == 'SUCCEEDED' ) {
         var startTime = new Date( data.createTime );
         var endTime = new Date( data.completeTime );
         var duration = endTime.getSeconds() - startTime.getSeconds();
         var deployment = JSON.parse( data.deploymentOverview );
-       
+
         if ( deployName == 'Production' ) {
-            postData.channel = '#product';
+            postData.channel = '#prd-backchannel';
         }
         postData.text = "*" + appName + " successfully deployed to " + deployName + " in " + duration + " seconds!*";
+        if ( deployName == 'Production' ) {
+            postData.text += "\n:siren_flashing: :siren_flashing: :siren_flashing: <@here> Someone run the post-deployment checklist: https://github.com/spiritedmedia/spiritedmedia/blob/master/qa/checklists/checklist-post-deployment.md";
+        }
         severity = "good";
         slackMessage = "";
         for( var key in deployment ) {
@@ -49,37 +52,40 @@ exports.handler = function(event, context) {
             slackMessage += key + ": " + val + "\n";
         }
     }
-    
+
      if( status == 'CREATED' ) {
-        postData.channel = '#product';
+        if ( deployName == 'Production' ) {
+            postData.channel = '#prd-backchannel';
+        }
         postData.text = "*Deployment to " + appName + "/" + deployName + " has started...*";
         slackMessage = '';
      }
-    
+
     postData.attachments = [
         {
-            "color": severity, 
+            "color": severity,
             "text": slackMessage
         }
     ];
 
+    // See https://slack.com/apps/A0F7XDUAZ-incoming-webhooks to get the correct path value
     var options = {
         method: 'POST',
         hostname: 'hooks.slack.com',
         port: 443,
-        path: '/services/T029KV50V/B1GG1DZD0/RN0F0yTY88ozvE2Iht3US3wW'
+        path: '/services/xxx/xxx/xxx'
     };
-    
+
     var req = https.request(options, function(res) {
       res.setEncoding('utf8');
       res.on('data', function (chunk) {
         context.done(null);
       });
     });
-    
+
     req.on('error', function(e) {
       console.log('problem with request: ' + e.message);
-    });    
+    });
 
     req.write(util.format("%j", postData));
     req.end();
