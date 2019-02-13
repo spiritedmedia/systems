@@ -236,11 +236,3 @@ Add the following, use [crontab.guru](http://crontab.guru/) to identify the timi
 
 # Create an AMI
 Save an AMI via the AWS Console once everything is in it's right place. The AMI will be used to relaunch the instance if necessary. This also provides a backup to the server before major upgrades.
-
-
-# Glossary
-**AMI** - Amazon Machine Image, Amazon's own virtual machine format
-
-**HVM** - Hardware Virtual Machine provides the ability to run an operating system directly on top of a virtual machine without any modification, as if it were run on the bare-metal hardware.
-
-**PV** - Paravirtual guests can run on host hardware that does not have explicit support for virtualization, but they cannot take advantage of special hardware extensions such as enhanced networking or GPU processing.
