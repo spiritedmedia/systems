@@ -232,7 +232,7 @@ log_group_name = /var/www/spiritedmedia.com/htdocs/wp-content/debug.log
 ```
 Then restart the `awslogs` service: `sudo service awslogs restart`
 
-It might be a good idea to setup a cron job that resarts the awslogs service every day or so as it tends to stop sending logs after some time.
+It might be a good idea to setup a cron job that restarts the awslogs service every day or so as it tends to stop sending logs after some time.
 
 See https://github.com/spiritedmedia/systems/issues/23 and https://github.com/spiritedmedia/systems/issues/31
 
