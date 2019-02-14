@@ -179,7 +179,7 @@ if ( ! empty( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === $_SERVER['HTTP
 Copy `deploy-staging.sh` to `/var/www/scripts/deploy-staging.sh`. This is used by AWS CodeDeploy to update the application from our build repo so the server is running the latest version of the code.
 
 ## Set-up Script to Update OS
-Copy `update-os.sh` to `~/update-os.sh` on the staging server. This is used to update the OS packages on the server and purge old kernals which take up space. Make it executeable (`chmod +x update-os.sh`) and run it (`./update-os.sh`) manually from time to time.
+Copy `update-os.sh` to `~/update-os.sh` on the staging server. This is used to update the OS packages on the server and purge old kernals which take up space. Make it executable (`chmod +x update-os.sh`) and run it (`./update-os.sh`) manually from time to time.
 
 ## Password Protection
 Because this is a staging server we only want certain people to be able to access it. Adding a basic authentication layer keeps the public out as well as bots. See the `basic-auth.conf` file in the [nginx section](../nginx/).
