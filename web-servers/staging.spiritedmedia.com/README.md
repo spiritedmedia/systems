@@ -1,3 +1,5 @@
+Since the staging environment is for testing we can simplify the setup. Everything is run on the same server (WordPress, Redis for caching, MySQL database, media uploads). We also employ [Local Photon](https://github.com/spiritedmedia/local-photon) so images can be dynamically resized via URL and they can be fetched from an external domain (like our CDN a.spirited.media)
+
 # Initial Image
 Create a new instance based off of an Ubuntu AMI `Ubuntu Server 18.04 LTS (HVM), SSD Volume Type (64-bit)`
 
@@ -113,7 +115,7 @@ define( 'EMPTY_TRASH_DAYS', 1 );
 // For the mercator Domain mapping plugin
 define( 'SUNRISE', 'on' );
 
-// We use an external cron See https://github.com/spiritedmedia/spiritedmedia/pull/2548 
+// We use an external cron See https://github.com/spiritedmedia/spiritedmedia/pull/2548
 define( 'DISABLE_WP_CRON', true );
 
 define( 'WP_DEBUG', true );
@@ -177,7 +179,7 @@ if ( ! empty( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === $_SERVER['HTTP
 Copy `deploy-staging.sh` to `/var/www/scripts/deploy-staging.sh`. This is used by AWS CodeDeploy to update the application from our build repo so the server is running the latest version of the code.
 
 ## Set-up Script to Update OS
-Copy `update-os.sh` to `~/update-os.sh` on the staging server. This is used to update the OS packages on the server and purge old kernals which take up space. Make it executeable (`chmod +x update-os.sh`) and run it (`./update-os.sh`) manually from time to time. 
+Copy `update-os.sh` to `~/update-os.sh` on the staging server. This is used to update the OS packages on the server and purge old kernals which take up space. Make it executeable (`chmod +x update-os.sh`) and run it (`./update-os.sh`) manually from time to time.
 
 ## Password Protection
 Because this is a staging server we only want certain people to be able to access it. Adding a basic authentication layer keeps the public out as well as bots. See the `basic-auth.conf` file in the [nginx section](../nginx/).
