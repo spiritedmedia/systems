@@ -60,7 +60,7 @@ sudo ./install auto
 # Install EasyEngine
 wget -qO ee rt.cx/ee && sudo bash ee
 
-# Enable auto-completeition for ee commands
+# Enable auto-completion for ee commands
 source /etc/bash_completion.d/ee_auto.rc
 
 # Create a site for spiritedmedia.com
