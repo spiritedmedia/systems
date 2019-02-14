@@ -1,6 +1,6 @@
 # AWS Identity and Access Management (IAM)
 
-Manage access to different resources. Here we have a couple of our custom policies.
+Manage access to different resources. Here we have a couple of our custom policies. See the [AWS IAM User guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html).
 
 ## CodeDeploy-EC2-Permissions
 
