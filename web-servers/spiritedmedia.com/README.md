@@ -1,3 +1,7 @@
+In production we run multiple servers for redundancy and high availability in an auto scaling group. Separate components are on their own hardware (dedicated machines for WordPress, Redis, Aurora Database, S3 bucket for media).
+
+![image](https://user-images.githubusercontent.com/867430/52797501-0584a800-3044-11e9-8832-ffc12820f9e7.png)
+
 # Initial Image
 Create a new instance based off of an Ubuntu AMI `Ubuntu Server 18.04 LTS (HVM), SSD Volume Type (64-bit)`
 
@@ -112,7 +116,7 @@ define( 'WPMU_ACCEL_REDIRECT', true );
 define( 'WP_AUTO_UPDATE_CORE', false );
 define( 'DISALLOW_FILE_MODS', true );
 
-// We use an external cron See https://github.com/spiritedmedia/spiritedmedia/pull/2548 
+// We use an external cron See https://github.com/spiritedmedia/spiritedmedia/pull/2548
 define( 'DISABLE_WP_CRON', true );
 define( 'WP_POST_REVISIONS', 30 );
 
@@ -230,7 +234,7 @@ Then restart the `awslogs` service: `sudo service awslogs restart`
 
 It might be a good idea to setup a cron job that resarts the awslogs service every day or so as it tends to stop sending logs after some time.
 
-See https://github.com/spiritedmedia/systems/issues/23 and https://github.com/spiritedmedia/systems/issues/31 
+See https://github.com/spiritedmedia/systems/issues/23 and https://github.com/spiritedmedia/systems/issues/31
 
 ## Set-up the Deploy Script
 Copy `deploy-production.sh` to `/var/www/spiritedmedia.com/scripts/deploy-production.sh`. This is used by AWS CodeDeploy to update the application from our build repo so the server is running the latest version of the code.
@@ -248,7 +252,7 @@ See [updating-ami-for-spiritedmedia-com.md](updating-ami-for-spiritedmedia-com.m
 EasyEngine makes it easy to handle full page caching via Redis. See [EasyEngine 3.3 released with Full-Page Redis Cache support](https://easyengine.io/blog/easyengine-3-3-full-page-redis-cache/)
 
 - Cache TTL is 4 hours
-- Caching behavior is controlled through the [Redis Full Page Cache Purger plugin](https://github.com/spiritedmedia/redis-full-page-cache-purger) 
+- Caching behavior is controlled through the [Redis Full Page Cache Purger plugin](https://github.com/spiritedmedia/redis-full-page-cache-purger)
 - Be sure to add `define( 'REDIS_CACHE_PURGE_HOST', 'redis.spiritedmedia.com' );` to `wp-config.php`
 - Only requests to PHP pages are cached in Redis
 - Requests with query strings in the URL are cached but some query parameters are ignored. See https://github.com/spiritedmedia/spiritedmedia/pull/3086
