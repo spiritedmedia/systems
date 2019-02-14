@@ -19,4 +19,8 @@ redis-cli flushall
 ee stack restart --nginx --php7
 
 # Flush permalinks
-# wp rewrite flush --allow-root
+for url in $(wp site list --allow-root --field=url)
+do
+  echo $url #Used for progress purposes
+  wp rewrite flush --allow-root --url=$url
+done
