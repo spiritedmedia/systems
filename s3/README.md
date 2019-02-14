@@ -44,3 +44,9 @@ aws s3 sync /var/www/spiritedmedia.com/htdocs/wp-content/uploads/ s3://spiritedm
 ```
 
 See the [spiritedmedia.com web servers](../web-servers/spiritedmedia.com) section for more details.
+
+## aws.spiritedmedia.com Redirect
+
+To make it easier to redirect to our AWS console sign in screen, a redirect has been setup in S3. A bucket, `aws.spiritedmed.com` has been setup. In the properties from that bucket Static Website Hosting has been setup to redirect all requests to our AWS console sign in screen. A record in Route 53 maps `aws.spiritedmedia.com` to the S3 endpoint for the aws.spiritedmedia.com bucket. We have to do it this way because there is no way to redirect to a path in a request from DNS alone.
+
+![screen shot 2019-02-14 at 12 41 14 pm](https://user-images.githubusercontent.com/867430/52806232-72a13900-3056-11e9-8ab7-e04d62b10f04.jpg)
