@@ -7,6 +7,16 @@ Normally you need to specify a single IP address for an A record. If you have mu
 
 Outside of Alias Records our use of Route 53 is pretty bare bones: editing records for different domains.
 
+## Simplifying CNAMES
+
+Since we run many different sites from one server we can use CNAME records to simplify our DNS management. spiritedmedia.com is our root domain. It should get the appropriate A records or IP address changes. Other domains should use CNAME records that point to the spiritedmedia.com domain. This way if we ever need to change an IP address we just need to change the spiritedmedia.com record and every other sites record. 
+
+Example:
+
+ - staging.spiritedmedia.com -> A record = 52.200.22.207
+ - staging.billypenn.com -> CNAME record = staging.spiritedmedia.com
+ - staging.theincline.com -> CNAME record = staging.spiritedmedia.com 
+
 ## Tools for Checking DNS Propigation
  - https://www.whatsmydns.net/
  - https://dns.google.com/
