@@ -1,7 +1,7 @@
 # Amazon SES for Transactional Emails
 aka How We Send Email from Our Servers
 
-The [Amazon SES](https://aws.amazon.com/ses/) service handles sending out email on our behalf. They handle the messy details of actually sending the email. We handle making an API request thanks to [Human Made's AWS SES wp_mail() drop-in](https://github.com/humanmade/aws-ses-wp-mail) plugin.
+The [Amazon SES](https://aws.amazon.com/ses/) service handles sending out email on our behalf whenever `wp_mail()` is called. They handle the messy details of actually sending the email. We handle making an API request thanks to [Human Made's AWS SES wp_mail() drop-in](https://github.com/humanmade/aws-ses-wp-mail) plugin.
 
 ## Installation
  0. Humanmade's plugin has been added to our `composer.json` file
