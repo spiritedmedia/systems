@@ -12,18 +12,6 @@ git reset --hard origin/staging
 echo 'Reset File Permissions'
 chown -R www-data:www-data /var/www/staging.spiritedmedia.com/htdocs/wp-content/
 
-# Sync static theme files to S3 so they can be served through a CDN
-# echo 'Sync Media to S3'
-# s3cmd sync \
-#    --acl-public \
-#    --no-mime-magic \
-#    --guess-mime-type \
-#    --verbose \
-#    --storage-class REDUCED_REDUNDANCY \
-#    --exclude-from /var/www/staging.spiritedmedia.com/scripts/sync.exclude \
-#    --include-from /var/www/staging.spiritedmedia.com/scripts/sync.include \
-#    /var/www/staging.spiritedmedia.com/htdocs/ s3://staging-spiritedmedia-com/
-
 # Flush Redis Cache
 redis-cli flushall
 
