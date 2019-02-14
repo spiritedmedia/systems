@@ -8,7 +8,7 @@ The network topology looks like this:
 
 **spiritedmedia.b-cdn.net.com** This is the hostname BunnyCDN gave us. If the request was previously cached, BunnyCDN returns the request. Otherwise it passes the request on to an origin to get a copy of the file.
 
-For files ending in `css` or `js` we use Edge Rules to override the origin to go to `https://spiritedmedia.com`. This way we don't need to sync CSS and JavaScript assets to S3 to be served by our CDN.
+For files ending in `css` or `js` we use Edge Rules to override the origin to go to `https://spiritedmedia.com`. This way we don't need to sync CSS and JavaScript assets to S3 to be served by our CDN. See <https://bunnycdn.com/dashboard/pullzones/edit/27528#config-content-edge-rules>
 
 Otherwise requests get handed off to CloudFront where they will be fetched from our S3 bucket.
 
