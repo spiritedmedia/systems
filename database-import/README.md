@@ -50,13 +50,13 @@ UPDATE `wp_blogs` SET `domain` = 'denverite.dev' WHERE `domain` = 'denverite.com
 UPDATE `wp_options` SET `option_value` = 'https://staging.spiritedmedia.com/' WHERE `option_value` = 'https://spiritedmedia.com/';
 UPDATE `wp_2_options` SET `option_value` = 'https://staging.billypenn.com/' WHERE `option_value` = 'https://billypenn.com/';
 UPDATE `wp_3_options` SET `option_value` = 'https://staging.theincline.com/' WHERE `option_value` = 'https://theincline.com/';
-UPDATE `wp_4_options` SET `option_value` = 'https://stagingdenverite.com/' WHERE `option_value` = 'https://denverite.com/';
+UPDATE `wp_4_options` SET `option_value` = 'https://staging.denverite.com/' WHERE `option_value` = 'https://denverite.com/';
 
 # Update domains in wp_blogs
-UPDATE `wp_blogs` SET `domain` = 'staging.spiritedmedia.dev' WHERE `domain` = 'spiritedmedia.com';
-UPDATE `wp_blogs` SET `domain` = 'staging.billypenn.dev' WHERE `domain` = 'billypenn.com';
-UPDATE `wp_blogs` SET `domain` = 'staging.theincline.dev' WHERE `domain` = 'theincline.com';
-UPDATE `wp_blogs` SET `domain` = 'staging.denverite.dev' WHERE `domain` = 'denverite.com';
+UPDATE `wp_blogs` SET `domain` = 'staging.spiritedmedia.com' WHERE `domain` = 'spiritedmedia.com';
+UPDATE `wp_blogs` SET `domain` = 'staging.billypenn.com' WHERE `domain` = 'billypenn.com';
+UPDATE `wp_blogs` SET `domain` = 'staging.theincline.com' WHERE `domain` = 'theincline.com';
+UPDATE `wp_blogs` SET `domain` = 'staging.denverite.com' WHERE `domain` = 'denverite.com';
 ```
 
 ## Resources
