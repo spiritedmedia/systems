@@ -13,8 +13,8 @@ If you need to import a fresh site dump then export all of the tables. There wil
 For each site's `wp_options` table you will need to update the URLs. Failure to do this will cause WordPress to redirect to the live site.
 
  - Replace `wp_x_options` with the proper site ID (`wp_2_options` etc.). Replace
- - Repalce `https://new-domain.dev/` with the new domain name
- - Repalce `https://old-domain.com/` with the domain name of the live site (`https://billypenn.com/`, `https://theincline.com/`)
+ - Replace `https://new-domain.dev/` with the new domain name
+ - Replace `https://old-domain.com/` with the domain name of the live site (`https://billypenn.com/`, `https://theincline.com/`)
 ```
 UPDATE `wp_x_options` SET `option_value` = 'https://new-domain.dev/' WHERE `option_value` = 'https://old-domain.com/';
 ```
@@ -60,6 +60,6 @@ UPDATE `wp_blogs` SET `domain` = 'staging.denverite.com' WHERE `domain` = 'denve
 ```
 
 ## Resources
- - [Offical WordPress Database Schema](https://codex.wordpress.org/Database_Description)
+ - [Official WordPress Database Schema](https://codex.wordpress.org/Database_Description)
  - [WordPress Multisite Database Tour](https://deliciousbrains.com/wordpress-multisite-database-tour/)
  - [WordPress Multisite Database Structure](https://rudrastyh.com/wordpress-multisite/database-tutorial.html)
