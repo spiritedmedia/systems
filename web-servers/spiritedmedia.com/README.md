@@ -69,14 +69,6 @@ sudo ee site create spiritedmedia.com --wpsubdomain --wpredis --php7 --user=admi
 # Install Admin/dev tools
 sudo ee stack install --admin
 
-# Install phpRedisAdmin for exploring the contents of the Redis cache
-sudo ee stack install --phpredisadmin
-
-# Change permissions for accessing the dev tools on port 22222
-# Set to 'spiritedmedia' and 'spirited' for convenience
-sudo ee secure --auth
-
-
 # Clone our application repo containing wp-content stuff
 cd /var/www/spiritedmedia.com/htdocs/
 sudo git init
