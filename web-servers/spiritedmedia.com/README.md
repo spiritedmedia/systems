@@ -182,8 +182,22 @@ if ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 }
 ```
 
+## Instal `aws-cli` Tools
+
+```
+pip3 install awscli --upgrade --user
+```
+
+
 ## AWS CloudWatch Log Monitoring
-We can send server logs to CloudWatch where they can be analyzed in one central location. First you need to [install the AWS CloudWatch agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html). Then we can update the configuration to point to the log files we want to monitor. Edit `/var/awslogs/etc/awslogs.conf`
+We can send server logs to CloudWatch where they can be analyzed in one central location. First you need to [install the AWS CloudWatch agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-first-instance.html).
+
+```
+wget https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py
+sudo python awslogs-agent-setup.py -r us-east-1
+```
+
+Then we can update the configuration to point to the log files we want to monitor. Edit `/var/awslogs/etc/awslogs.conf`
 
 ```
 [/var/nginx/spiritedmedia.com.error.log]
