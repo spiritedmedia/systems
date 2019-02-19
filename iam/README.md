@@ -4,7 +4,7 @@ Manage access to different resources. Here we have a couple of our custom polici
 
 ## CodeDeploy-EC2-Permissions
 
-Your Amazon EC2 instances need permission to access the Amazon S3 buckets or GitHub repositories where the applications that will be deployed by AWS CodeDeploy are stored. These instructions show you how to create an IAM instance profile to attach to your Amazon EC2 instances to give this permission. (Page 118 of [CodeDeploy User guide](https://docs.aws.amazon.com/codedeploy/latest/userguide/codedeploy-user.pdf))
+> Your Amazon EC2 instances need permission to access the Amazon S3 buckets or GitHub repositories where the applications that will be deployed by AWS CodeDeploy are stored. These instructions show you how to create an IAM instance profile to attach to your Amazon EC2 instances to give this permission. (Page 118 of [CodeDeploy User guide](https://docs.aws.amazon.com/codedeploy/latest/userguide/codedeploy-user.pdf))
 
 ## Force_MFA
 
