@@ -66,9 +66,6 @@ source /etc/bash_completion.d/ee_auto.rc
 # Create a site for spiritedmedia.com
 sudo ee site create spiritedmedia.com --wpsubdomain --wpredis --php7 --user=admin --pass=admin --email=systems@spiritedmedia.com --experimental
 
-# Install Admin/dev tools
-sudo ee stack install --admin
-
 # Clone our application repo containing wp-content stuff
 cd /var/www/spiritedmedia.com/htdocs/
 sudo git init
