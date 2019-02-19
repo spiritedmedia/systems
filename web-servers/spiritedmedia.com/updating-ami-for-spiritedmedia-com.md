@@ -74,7 +74,7 @@ Check over the settings. When you're ready, click the __Launch__ button to start
 ## SSH into the Maintence Box
 
  - While the EC2 instance is booting up, copy the public IPv4 IP address.
- - Edit your `hosts` file so our domain names point to the new instance instead of the load balancer. [Gas Mask](https://github.com/2ndalpha/gasmask) is handy for this.
+ - Edit your `hosts` file so our domain names point to the new instance instead of the load balancer.
  
  ``` 
  xxx.xxx.xxx.xxx    spiritedmedia.com billypenn.com www.billypenn.com billypenn.spiritedmedia.com theincline.com www.theincline.com theincline.spiritedmedia.com
