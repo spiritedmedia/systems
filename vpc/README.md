@@ -29,3 +29,7 @@ Staging
 
  - VPC: Stage - Spirited Media
  	- 10.0.2.0/24 Public (us-east-1d)
+
+## Resources
+ - [AWS Routing 101](https://medium.com/@mda590/aws-routing-101-67879d23014d)
+ - [Understanding IP Addresses, Subnets, and CIDR Notation for Networking](https://www.digitalocean.com/community/tutorials/understanding-ip-addresses-subnets-and-cidr-notation-for-networking)
