@@ -256,6 +256,7 @@ EasyEngine makes it easy to handle full page caching via Redis. See [EasyEngine 
 
 - Cache TTL is 4 hours
 - Caching behavior is controlled through the [Redis Full Page Cache Purger plugin](https://github.com/spiritedmedia/redis-full-page-cache-purger)
+- To use an external Redis server like ElastiCache edit `/etc/nginx/conf.d/upstream.conf` and edit the `upstream redis { server 127.0.0.1:6379; keepalive 10; }` value.
 - Be sure to add `define( 'REDIS_CACHE_PURGE_HOST', 'redis.spiritedmedia.com' );` to `wp-config.php`
 - Only requests to PHP pages are cached in Redis
 - Requests with query strings in the URL are cached but some query parameters are ignored. See https://github.com/spiritedmedia/spiritedmedia/pull/3086
