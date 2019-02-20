@@ -37,6 +37,9 @@ Uploaded Media (if activated): <https://staging-spiritedmedia-com.s3.amazonaws.c
 | 3   | [theincline.spiritedmedia.dev](https://theincline.spiritedmedia.dev) | [theincline.dev](https://theincline.dev) |
 | 4   | [denverite.spiritedmedia.dev](https://denverite.spiritedmedia.dev) | [denverite.dev](https://denverite.dev) |
 
+## CloudFormation
+CloudFormation templates for the Production and Staging environment are included in this repo. Use the [CloudFormation Designer tool](https://console.aws.amazon.com/cloudformation/designer/home) to upload the `.template` files and then launch the stack. This should spin up most of the environment and connect various pieces for you. 
+
 # Resources
  - [AWS Open Guide](https://github.com/open-guides/og-aws)
  - [AWS in Plain English](https://www.expeditedssl.com/aws-in-plain-english)

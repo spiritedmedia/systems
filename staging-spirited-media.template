@@ -1,0 +1,493 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "vpcf762cd90": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "InstanceTenancy": "default",
+        "EnableDnsSupport": "true",
+        "EnableDnsHostnames": "true",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Stage - Spirited Media"
+          },
+          {
+            "Key": "Environment",
+            "Value": "Staging"
+          }
+        ]
+      }
+    },
+    "subnet8c0056d4": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.2.0/24",
+        "AvailabilityZone": "us-east-1d",
+        "VpcId": {
+          "Ref": "vpcf762cd90"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "10.0.2.0 - Stage"
+          },
+          {
+            "Key": "Environment",
+            "Value": "Staging"
+          }
+        ]
+      }
+    },
+    "igw848bc0e0": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Stage - Spirited Media"
+          }
+        ]
+      }
+    },
+    "dopta7b048c3": {
+      "Type": "AWS::EC2::DHCPOptions",
+      "Properties": {
+        "DomainName": "ec2.internal",
+        "DomainNameServers": [
+          "AmazonProvidedDNS"
+        ]
+      }
+    },
+    "acl012eb966": {
+      "Type": "AWS::EC2::NetworkAcl",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpcf762cd90"
+        }
+      }
+    },
+    "rtbb6281cd1": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpcf762cd90"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Stage - Spirited Media"
+          }
+        ]
+      }
+    },
+    "eip5220022207": {
+      "Type": "AWS::EC2::EIP",
+      "DependsOn": [
+        "gw2"
+      ],
+      "Properties": {
+        "Domain": "vpc"
+      }
+    },
+    "instancei00e08008471730612": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "DisableApiTermination": "false",
+        "InstanceInitiatedShutdownBehavior": "stop",
+        "IamInstanceProfile": "arn:aws:iam::194137505639:instance-profile/CodeDeploy-EC2",
+        "ImageId": "ami-79d68f6e",
+        "InstanceType": "t2.micro",
+        "KeyName": "EC2 - Stage - Spirited Media",
+        "Monitoring": "false",
+        "Tags": [
+          {
+            "Key": "Environment",
+            "Value": "Staging"
+          },
+          {
+            "Key": "Name",
+            "Value": "Staging - Spirited Media"
+          }
+        ],
+        "NetworkInterfaces": [
+          {
+            "DeleteOnTermination": "true",
+            "Description": "Primary network interface",
+            "DeviceIndex": 0,
+            "SubnetId": {
+              "Ref": "subnet8c0056d4"
+            },
+            "PrivateIpAddresses": [
+              {
+                "PrivateIpAddress": "10.0.2.140",
+                "Primary": "true"
+              }
+            ],
+            "GroupSet": [
+              {
+                "Ref": "sgWebServerStageSpiritedMedia"
+              },
+              {
+                "Ref": "sgStageSSHAccess"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "s3stagingspiritedmediacom": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "AccessControl": "Private",
+        "CorsConfiguration": {
+          "CorsRules": [
+            {
+              "AllowedHeaders": [
+                "Authorization"
+              ],
+              "AllowedMethods": [
+                "GET"
+              ],
+              "AllowedOrigins": [
+                "*"
+              ],
+              "MaxAge": "3000"
+            }
+          ]
+        },
+        "VersioningConfiguration": {
+          "Status": "Suspended"
+        }
+      }
+    },
+    "topicCodeDeploy": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "DisplayName": "CodeDeploy"
+      }
+    },
+    "topicEC2Trouble": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "DisplayName": "EC2Trouble",
+        "Subscription": [
+          {
+            "Endpoint": "systems@spiritedmedia.com",
+            "Protocol": "email"
+          }
+        ]
+      }
+    },
+    "sgStageSSHAccess": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Whitelisted IPs for access to the staging environment",
+        "VpcId": {
+          "Ref": "vpcf762cd90"
+        }
+      }
+    },
+    "sgWebServerStageSpiritedMedia": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "For EC2 web server instances",
+        "VpcId": {
+          "Ref": "vpcf762cd90"
+        },
+        "Tags": [
+          {
+            "Key": "Environment",
+            "Value": "Staging"
+          }
+        ]
+      }
+    },
+    "snspolicyCodeDeploy": {
+      "Type": "AWS::SNS::TopicPolicy",
+      "Properties": {
+        "Topics": [
+          {
+            "Ref": "topicCodeDeploy"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2008-10-17",
+          "Id": "__default_policy_ID",
+          "Statement": [
+            {
+              "Sid": "__default_statement_ID",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*"
+              },
+              "Action": [
+                "SNS:GetTopicAttributes",
+                "SNS:SetTopicAttributes",
+                "SNS:AddPermission",
+                "SNS:RemovePermission",
+                "SNS:DeleteTopic",
+                "SNS:Subscribe",
+                "SNS:ListSubscriptionsByTopic",
+                "SNS:Publish",
+                "SNS:Receive"
+              ],
+              "Resource": {
+                "Ref": "topicCodeDeploy"
+              },
+              "Condition": {
+                "StringEquals": {
+                  "AWS:SourceOwner": "194137505639"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "snspolicyEC2Trouble": {
+      "Type": "AWS::SNS::TopicPolicy",
+      "Properties": {
+        "Topics": [
+          {
+            "Ref": "topicEC2Trouble"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2008-10-17",
+          "Id": "__default_policy_ID",
+          "Statement": [
+            {
+              "Sid": "__default_statement_ID",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*"
+              },
+              "Action": [
+                "SNS:GetTopicAttributes",
+                "SNS:SetTopicAttributes",
+                "SNS:AddPermission",
+                "SNS:RemovePermission",
+                "SNS:DeleteTopic",
+                "SNS:Subscribe",
+                "SNS:ListSubscriptionsByTopic",
+                "SNS:Publish",
+                "SNS:Receive"
+              ],
+              "Resource": {
+                "Ref": "topicEC2Trouble"
+              },
+              "Condition": {
+                "StringEquals": {
+                  "AWS:SourceOwner": "194137505639"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "acl3": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Egress": "true",
+        "Protocol": "-1",
+        "RuleAction": "allow",
+        "RuleNumber": "100",
+        "NetworkAclId": {
+          "Ref": "acl012eb966"
+        }
+      }
+    },
+    "acl4": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Protocol": "-1",
+        "RuleAction": "allow",
+        "RuleNumber": "100",
+        "NetworkAclId": {
+          "Ref": "acl012eb966"
+        }
+      }
+    },
+    "subnetacl5": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "acl012eb966"
+        },
+        "SubnetId": {
+          "Ref": "subnet8c0056d4"
+        }
+      }
+    },
+    "gw2": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpcf762cd90"
+        },
+        "InternetGatewayId": {
+          "Ref": "igw848bc0e0"
+        }
+      }
+    },
+    "subnetroute7": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "rtbb6281cd1"
+        },
+        "SubnetId": {
+          "Ref": "subnet8c0056d4"
+        }
+      }
+    },
+    "route2": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "RouteTableId": {
+          "Ref": "rtbb6281cd1"
+        },
+        "GatewayId": {
+          "Ref": "igw848bc0e0"
+        }
+      },
+      "DependsOn": "gw2"
+    },
+    "dchpassoc1": {
+      "Type": "AWS::EC2::VPCDHCPOptionsAssociation",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpcf762cd90"
+        },
+        "DhcpOptionsId": {
+          "Ref": "dopta7b048c3"
+        }
+      }
+    },
+    "assoc1": {
+      "Type": "AWS::EC2::EIPAssociation",
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "eip5220022207",
+            "AllocationId"
+          ]
+        },
+        "InstanceId": {
+          "Ref": "instancei00e08008471730612"
+        }
+      }
+    },
+    "ingress16": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgStageSSHAccess"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22",
+        "ToPort": "22",
+        "CidrIp": "108.2.201.223/32"
+      }
+    },
+    "ingress17": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgStageSSHAccess"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22",
+        "ToPort": "22",
+        "CidrIp": "172.56.3.65/32"
+      }
+    },
+    "ingress18": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgStageSSHAccess"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22",
+        "ToPort": "22",
+        "CidrIp": "173.64.93.27/32"
+      }
+    },
+    "ingress19": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgStageSSHAccess"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22",
+        "ToPort": "22",
+        "CidrIp": "172.93.226.234/32"
+      }
+    },
+    "ingress20": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgWebServerStageSpiritedMedia"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "80",
+        "ToPort": "80",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "ingress21": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgWebServerStageSpiritedMedia"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22222",
+        "ToPort": "22222",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "ingress22": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgWebServerStageSpiritedMedia"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "443",
+        "ToPort": "443",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "egress6": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgStageSSHAccess"
+        },
+        "IpProtocol": "-1",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "egress7": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgWebServerStageSpiritedMedia"
+        },
+        "IpProtocol": "-1",
+        "CidrIp": "0.0.0.0/0"
+      }
+    }
+  },
+  "Description": "Spin up a staging environment for Spirited Media WordPress sites."
+}
