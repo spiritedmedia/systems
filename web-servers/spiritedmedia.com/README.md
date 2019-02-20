@@ -250,6 +250,42 @@ Save an AMI via the AWS Console once everything is in it's right place. The AMI 
 
 See [updating-ami-for-spiritedmedia-com.md](updating-ami-for-spiritedmedia-com.md) for steps on baking and deploying a new AMI.
 
+# Load Balancing and Auto Scaling
+
+Since the production environment uses multiple servers we need a load balancer to evenly distribute the traffic. You'll need to setup an SSL certificate using Amazon's ACM service before continuing. See the [SSL README.md](ssl/). 
+
+ - Create a new [Application Load Balancer](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#V2CreateELBWizard:type=application:)
+ - The scheme should be `internet-facing`
+ - Add a listener for HTTP (port 80) and HTTPS (port 443) traffic
+ - Select a VPC and which subnets you want to provide traffic to (usually you would select all available subnets)
+ - Choose the certificate created in ACM (you'll want spiritedmedia.com which has aliases for each of the three sites)
+ - Use the `ELB - Prod - Spirited Media` security group (allow inbound traffic on port 80 and port 443 from anywhere)
+ - Specify the health check path to `/health-check.php` (The response from this file is how the load balancer determines if the instances are healthy and able to recieve traffic)
+ - Health check thresholds (an instance is considered healthy if it has responded successfully to 3 health checks in a row with a 200 status code)
+ 	-  Healthy Threshold: 3
+ 	-  Unhealthy threshold: 6
+ 	-  Timeout: 15
+ 	-  Interval: 30
+ 	-  Success codes: 200 
+
+The target group attributes will need to be modified to the following:
+ - Deregistration delay: 300 seconds
+ - Slow start duration: 0 seconds
+ - Stickiness: Enabled for 1 day
+
+If an instance is shutting down we will wait 300 seconds so clients can be routed to the other available instance (aka connection draining). Stickiness needs to be enabled so logged-in users are sent to the same instance where they might upload media which we want them to see right away before it gets uploaded to S3.
+
+Auto scaling groups are controlled by a launch configuration. The launch configuration defines the properties of the instances that will be launched and which AMI to use. After [baking a new AMI](updating-ami-for-spiritedmedia-com.md) the launch configuration needs to be updated by creating a copy and making changes. Then the autoscaling group can be told to use the new launch configuration and start replacing instances manually in the AWS console. 
+
+The load balancer is attached to the auto scaling group so any instances added to the auto scaling group are automatically registered with the load balancer and can start receiving traffic. 
+
+The desired auto scaling capacity should be 2 instances (1 in each availability zone). The minimum capacity is 2 and the maximum capacity is 4 (to control costs). A cooldown period of 120 seconds ensures we don't launch new instances too fast if there is a problem when launching the new instances (otherwise we could get an endless loop of the auto scaling group creating and destroying instances). The health check type should be ELB (aka the load balancer is what determines if the instances are healthy or not).
+
+Make sure new instances are tagged with the key `Environment` and the value `Production` so they can get code updates from AWS CodeDeploy. 
+
+Use the Activity History tab to monitor when new instances are being created to make sure everything is working right and you're not in a loop of spawning bad instances and killing them right away.
+
+
 # Full Page Caching with Redis and ElastiCache
 
 EasyEngine makes it easy to handle full page caching via Redis. See [EasyEngine 3.3 released with Full-Page Redis Cache support](https://easyengine.io/blog/easyengine-3-3-full-page-redis-cache/)
