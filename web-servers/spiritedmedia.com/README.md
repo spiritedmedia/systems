@@ -66,6 +66,9 @@ source /etc/bash_completion.d/ee_auto.rc
 # Create a site for spiritedmedia.com
 sudo ee site create spiritedmedia.com --wpsubdomain --wpredis --php7 --user=admin --pass=admin --email=systems@spiritedmedia.com --experimental
 
+# Forcing the usage of WordPress 4.9 until we officially support 5.0"
+sudo wp core update --version=4.9.8 --force --allow-root
+
 # Clone our application repo containing wp-content stuff
 cd /var/www/spiritedmedia.com/htdocs/
 sudo git init

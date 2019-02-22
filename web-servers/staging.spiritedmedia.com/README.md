@@ -65,6 +65,9 @@ source /etc/bash_completion.d/ee_auto.rc
 # Create a site for staging.spiritedmedia.com
 sudo ee site create staging.spiritedmedia.com --wpsubdomain --php7 --user=admin --pass=admin --email=systems@spiritedmedia.com --experimental
 
+# Forcing the usage of WordPress 4.9 until we officially support 5.0"
+sudo wp core update --version=4.9.8 --force --allow-root
+
 # Install Admin/dev tools
 sudo ee stack install --admin
 
