@@ -45,7 +45,7 @@ source /var/www/spiritedmedia.com/scripts/deploy-production.sh
 <img width="907" alt="image 2017-03-07 at 10 19 47" src="https://cloud.githubusercontent.com/assets/867430/23671481/631203a8-0339-11e7-850b-3a19e0dfeba9.png">
 
 ### Step 4 Add Storage
-80GB General Purpose SSD (GP2)
+100GB General Purpose SSD (GP2)
 Delete on Termination: Checked
 
 ### Step 5 Add Tags
