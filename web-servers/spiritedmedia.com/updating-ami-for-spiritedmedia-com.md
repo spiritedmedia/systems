@@ -167,7 +167,7 @@ IP Address Type: Assign a public IP address to every instance.
 ```
 
 ### Step 4 Add Storage
-Size: 80GB General Purpose (SSD)
+Size: 100GB General Purpose (SSD)
 
 ### Step 5 Configure Security Group
 This controls what ports are opened on the server + grants access to certain IP addresses
