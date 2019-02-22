@@ -185,7 +185,7 @@ if ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 }
 ```
 
-## Instal `aws-cli` Tools
+## Install `aws-cli` Tools
 
 ```
 pip3 install awscli --upgrade --user
