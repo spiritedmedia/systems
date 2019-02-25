@@ -2,6 +2,8 @@
 
 When you need to refresh the content for your local site or the staging site you'll need to do a database dump from production. Which tables you need to grab depends on what you are trying to do.
 
+Our method for getting the production database dump usually relies on adding the live database connection details to Sequel Pro and exporting from there. The dump can't be downloaded directly from AWS because we rely on snapshots (i.e. restore points), not automated backups.
+
 ## Updating Post Content
 
 If you just need to update posts (Articles, links, embeds, Fact Checks, etc.) then export all of the tables except for the `wp_options` table for each site that you want. Importing a `wp_options` table will require extra cleanup.
