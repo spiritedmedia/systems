@@ -1,5 +1,6 @@
 #!/bin/bash
-# Shell script to update the app level with the latest changes from GitHub (ex. when called form AWS CodeDeploy)
+# Shell script to update the app level with
+# the latest changes from GitHub (ex. when called form AWS CodeDeploy)
 # Should be placed in /var/www/spiritedmedia.com/scripts/ and run as root
 
 cd /var/www/spiritedmedia.com/htdocs/
@@ -86,7 +87,7 @@ redis-cli -h redis.spiritedmedia.com flushall
 ee stack restart --nginx --php7
 
 # Flush permalinks
-for url in $(wp site list --field=url)
+for url in $(wp site list --allow-root --field=url)
 do
   echo $url #Used for progress purposes
   wp rewrite flush --allow-root --url=$url

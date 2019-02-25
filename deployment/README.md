@@ -21,16 +21,15 @@ To make sure files that are ignored in the repo are added to the build-repo a bu
 
 
 ## AWS CodePipeline
-[AWS CodePipeline](https://console.aws.amazon.com/codepipeline/home?region=us-east-1#/dashboard) monitors the build repo for changes and triggers AWS CodeDeploy to run. 
+[AWS CodePipeline](https://console.aws.amazon.com/codepipeline/home?region=us-east-1#/dashboard) monitors the build repo for changes and triggers AWS CodeDeploy to run.
 
 ## AWS CodeDeploy
 [AWS CodeDeploy](https://console.aws.amazon.com/codedeploy/home?region=us-east-1#/applications) handles updating servers with the latest code changes. Servers can be identified for a deployment by tags or by a specific auto scaling group. The AWS CodeDeploy agent must be [installed](http://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-set-up-new-instance.html) on EC2 instances for this to work.
 
 An [appsec.yml](http://docs.aws.amazon.com/codedeploy/latest/userguide/app-spec-ref.html) file in the repo details what should happen on the servers to load the latest code changes. Our appsec.yml file simply calls a shell script to perform a `git pull` to pull down the latest changes on each of the running instances.
 
-The appsec.yml file prohibits calling arbitrary scripts. A stub shell script is included in the repo at `/bin/codedeploy.sh`. This shell script downloads and executes the shell script specified in the [EC2 instance User Data field](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html). The user data shell script calls the deploy script baked in to the AMI running the server.
+The `appsec.yml` file prohibits calling arbitrary scripts. A stub shell script is included in the repo at `/bin/codedeploy.sh`. This shell script downloads and executes the shell script specified in the [EC2 instance User Data field](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html). The user data shell script calls the deploy script baked in to the AMI running the server.
 
 ## Notifications
 
 Event notifications are sent to [Slack via an AWS Lambda function](https://medium.com/cohealo-engineering/how-set-up-a-slack-channel-to-be-an-aws-sns-subscriber-63b4d57ad3ea) when a deploy starts, fails, or succeeds. See `snsToSlack.js`
-

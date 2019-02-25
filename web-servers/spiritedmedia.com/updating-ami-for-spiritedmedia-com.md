@@ -45,7 +45,7 @@ source /var/www/spiritedmedia.com/scripts/deploy-production.sh
 <img width="907" alt="image 2017-03-07 at 10 19 47" src="https://cloud.githubusercontent.com/assets/867430/23671481/631203a8-0339-11e7-850b-3a19e0dfeba9.png">
 
 ### Step 4 Add Storage
-80GB General Purpose SSD (GP2)
+100GB General Purpose SSD (GP2)
 Delete on Termination: Checked
 
 ### Step 5 Add Tags
@@ -74,7 +74,7 @@ Check over the settings. When you're ready, click the __Launch__ button to start
 ## SSH into the Maintence Box
 
  - While the EC2 instance is booting up, copy the public IPv4 IP address.
- - Edit your `hosts` file so our domain names point to the new instance instead of the load balancer. [Gas Mask](https://github.com/2ndalpha/gasmask) is handy for this.
+ - Edit your `hosts` file so our domain names point to the new instance instead of the load balancer.
  
  ``` 
  xxx.xxx.xxx.xxx    spiritedmedia.com billypenn.com www.billypenn.com billypenn.spiritedmedia.com theincline.com www.theincline.com theincline.spiritedmedia.com
@@ -167,7 +167,7 @@ IP Address Type: Assign a public IP address to every instance.
 ```
 
 ### Step 4 Add Storage
-Size: 80GB General Purpose (SSD)
+Size: 100GB General Purpose (SSD)
 
 ### Step 5 Configure Security Group
 This controls what ports are opened on the server + grants access to certain IP addresses

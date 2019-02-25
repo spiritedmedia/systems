@@ -1,7 +1,7 @@
 # Amazon SES for Transactional Emails
 aka How We Send Email from Our Servers
 
-The [Amazon SES](https://aws.amazon.com/ses/) service handles sending out email on our behalf. They handle the messy details of actually sending the email. We handle making an API request thanks to [Humanmade's AWS SES wp_mail() drop-in](https://github.com/humanmade/aws-ses-wp-mail) plugin.
+The [Amazon SES](https://aws.amazon.com/ses/) service handles sending out email on our behalf whenever `wp_mail()` is called. They handle the messy details of actually sending the email. We handle making an API request thanks to [Human Made's AWS SES wp_mail() drop-in](https://github.com/humanmade/aws-ses-wp-mail) plugin.
 
 ## Installation
  0. Humanmade's plugin has been added to our `composer.json` file
@@ -12,7 +12,7 @@ The [Amazon SES](https://aws.amazon.com/ses/) service handles sending out email 
 ### Adding/verifying a new domain
 0. Make sure the new email address is being returned from filtering `wp_mail_from` (Pedestal defaults to the `PEDESTAL_EMAIL_NEWS` constant)
 - SSH into a server, run `wp aws-ses verify-sending-domain --url=<site_url>`
-- Log on to the [AWS Console](http://aws.spiritedmedia.com)
+- Log on to the [AWS Console](https://aws.spiritedmedia.com)
 - Verify the new domain name by adding DNS records to Route53. Details are in the AWS Console.
 - You may need to [request your sending limit be increased](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/increase-sending-limits.html)
 

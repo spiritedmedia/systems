@@ -8,7 +8,7 @@ When modifying a certificate a new cert needs to be requested, generated, and as
 
 ## Domain Verification
 
-To verify we own and control the domains we want a certfificate for Amazon sends email to the addresses listed in the whois records of the domain name. systems@spiritedmedia.com has been added as the contact for the Admin section of the Who Is records for all of our domains. 
+To verify we own and control the domains we want a certificate for Amazon sends email to the addresses listed in the whois records of the domain name. systems@spiritedmedia.com has been added as the contact for the Admin section of the Who Is records for all of our domains.
 
 ## Terminating at the Load Balancer
 
@@ -26,7 +26,7 @@ We need to enable stickiness on the load balancer so repeat requests get routed 
 
 ## nginx Tweaks
 
-Since SSL requests are preffered, we can rediret all non-secure requests to their `https` equivalent with this logic added to `/etc/nginx/sites-available/spiritedmedia.com`:
+Since SSL requests are preferred, we can redirect all non-secure requests to their `https` equivalent with this logic added to `/etc/nginx/sites-available/spiritedmedia.com`:
 
 ```
 set $redirect_to_https 0;
@@ -43,11 +43,11 @@ if ( $redirect_to_https = 1 ) {
   return 301 https://$host$request_uri;
 }
 ```
-The load balancer appends the header `X-FORWARDED_PROTO` to all requests so we can determine if the request was originally secure or not. Those that aren't ecure will be redirected to the secure, https, version.
+The load balancer appends the header `X-FORWARDED_PROTO` to all requests so we can determine if the request was originally secure or not. Those that aren't secure will be redirected to the secure, https, version.
 
 ## wp-config.php Tweaks
 
-WordPress' core function [`is_ssl()`](https://developer.wordpress.org/reference/functions/is_ssl/) depends on certain `$_SERVER` superglobal variables set. We need to handle this ourselves and check for the `X-FORWARDED-PROTO` request header.
+WordPress' core function [`is_ssl()`](https://developer.wordpress.org/reference/functions/is_ssl/) depends on certain `$_SERVER` super-global variables set. We need to handle this ourselves and check for the `X-FORWARDED-PROTO` request header.
 
 ```
 /*
@@ -63,4 +63,3 @@ If we don't do this then an endless redirect happens in `wp-login.php` due to `i
 ## Resources
 - [Stackoverflow thread on conditional logic for redirecting non-secure requests](http://serverfault.com/a/791052/70987)
 - [SSL Labs Test Results](https://www.ssllabs.com/ssltest/analyze.html?d=billypenn.com)
-

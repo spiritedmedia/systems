@@ -9,17 +9,8 @@ git fetch --all
 git reset --hard origin/staging
 
 # Reset file ownership
-chown -R www-data:www-data /var/www/staging.spiritedmedia.com/htdocs/
-
-# Sync static theme files to S3 so they can be served through a CDN
-s3cmd sync \
-	--acl-public \
-	--no-mime-magic \
-	--guess-mime-type \
-	--storage-class REDUCED_REDUNDANCY \
-	--exclude-from /var/www/staging.spiritedmedia.com/scripts/sync.exclude \
-	--include-from /var/www/staging.spiritedmedia.com/scripts/sync.include \
-	/var/www/staging.spiritedmedia.com/htdocs/ s3://staging-spiritedmedia-com/
+echo 'Reset File Permissions'
+chown -R www-data:www-data /var/www/staging.spiritedmedia.com/htdocs/wp-content/
 
 # Flush Redis Cache
 redis-cli flushall
@@ -28,4 +19,8 @@ redis-cli flushall
 ee stack restart --nginx --php7
 
 # Flush permalinks
-wp rewrite flush --allow-root
+for url in $(wp site list --allow-root --field=url)
+do
+  echo $url #Used for progress purposes
+  wp rewrite flush --allow-root --url=$url
+done

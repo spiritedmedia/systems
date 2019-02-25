@@ -1,0 +1,2333 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "zonespiritedmediacom": {
+      "Type": "AWS::Route53::HostedZone",
+      "Properties": {
+        "Name": "spiritedmedia.com."
+      }
+    },
+    "zonespiritedmedia": {
+      "Type": "AWS::Route53::HostedZone",
+      "Properties": {
+        "Name": "spirited.media.",
+        "HostedZoneConfig": {
+          "Comment": "CDN URL"
+        }
+      }
+    },
+    "zonebillypenncom": {
+      "Type": "AWS::Route53::HostedZone",
+      "Properties": {
+        "Name": "billypenn.com."
+      }
+    },
+    "zonetheinclinecom": {
+      "Type": "AWS::Route53::HostedZone",
+      "Properties": {
+        "Name": "theincline.com."
+      }
+    },
+    "zonedenveritecom": {
+      "Type": "AWS::Route53::HostedZone",
+      "Properties": {
+        "Name": "denverite.com.",
+        "HostedZoneConfig": {
+          "Comment": "Denverite, the Denver site!"
+        }
+      }
+    },
+    "dnsspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "spiritedmedia.com.",
+            "Type": "TXT",
+            "TTL": "86400",
+            "ResourceRecords": [
+              "\"v=spf1 include:_spf.google.com include:servers.mcsv.net ~all\"",
+              "\"google-site-verification=u4yqxQT-e5mm33PEech7Imd01AF2pyHVEbkPKMCj1Bc\"",
+              "\"facebook-domain-verification=rfn67gvupxmpeoc2ww34smf25at952\""
+            ]
+          }
+        ]
+      }
+    },
+    "dns5b5f123237f6921aba4ea0a15087725espiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "_5b5f123237f6921aba4ea0a15087725e.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "_a13f2dc66dc44113b347be852cce9bd2.acm-validations.aws."
+            ]
+          }
+        ]
+      }
+    },
+    "dnsamazonsesspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "_amazonses.spiritedmedia.com.",
+            "Type": "TXT",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "\"tnlVFyUZ1GiC+iyUWzd9tPdR8docfGywEJikoe5HYzc=\""
+            ]
+          }
+        ]
+      }
+    },
+    "dnsdkdomainkeyspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "dk._domainkey.spiritedmedia.com.",
+            "Type": "TXT",
+            "TTL": "300",
+            "ResourceRecords": [
+              "\"v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDhkOo8s6fh9Byz1uy69tfQ6eUnzi/5P22EWccwI1PdmCpiyNwZcq3vOS2MHbVYB+ZY6wbBlAFym8EHbZY9OTlJ3+dzt8qTUNW5olkNVl4ecDv3XO2ML8q5sxQL+dwQU6UAQiDAAC/ZRWwiXHrSsr90pqH1Q0vhB7Kp6DHrWYJquQIDAQAB\""
+            ]
+          }
+        ]
+      }
+    },
+    "dnsgoogledomainkeyspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "google._domainkey.spiritedmedia.com.",
+            "Type": "TXT",
+            "TTL": "3600",
+            "ResourceRecords": [
+              "\"v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCUSNX1FmInQ2nt0vOmcbNJrDLBP3AruqL0i3zHhheSz+BEB3GXTrdfJofEb5ABilBzL+GmKBxs6EoJwhi/SoM4OEDTKzr82Ftykzm5+x5ge+Z171wIBltwTXtqfHoC/YfwKNTrxApRIsQLBEc4Z+AXoWsuFEsze6MMq3TQdTL2MwIDAQAB\""
+            ]
+          }
+        ]
+      }
+    },
+    "dnsk1domainkeyspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "k1._domainkey.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "dkim.mcsv.net"
+            ]
+          }
+        ]
+      }
+    },
+    "dnslch4zktowoejzqpcxhz6qyxt7jheer2edomainkeyspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "lch4zktowoejzqpcxhz6qyxt7jheer2e._domainkey.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "lch4zktowoejzqpcxhz6qyxt7jheer2e.dkim.amazonses.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsscz7occaj7kyumxm3gfbcii5ybtjoxgedomainkeyspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "scz7occaj7kyumxm3gfbcii5ybtjoxge._domainkey.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "scz7occaj7kyumxm3gfbcii5ybtjoxge.dkim.amazonses.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsykxve4qbcai45mimq4ckde7y4lmbmaifdomainkeyspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "ykxve4qbcai45mimq4ckde7y4lmbmaif._domainkey.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "ykxve4qbcai45mimq4ckde7y4lmbmaif.dkim.amazonses.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsawsspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "aws.spiritedmedia.com.",
+            "Type": "A",
+            "AliasTarget": {
+              "HostedZoneId": "Z3AQBSTGFYJSTF",
+              "DNSName": "s3-website-us-east-1.amazonaws.com"
+            }
+          }
+        ]
+      }
+    },
+    "dnsdenveritespiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "denverite.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "spiritedmedia.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsdrivespiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "drive.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "86400",
+            "ResourceRecords": [
+              "ghs.googlehosted.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsmailspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "mail.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "86400",
+            "ResourceRecords": [
+              "ghs.googlehosted.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsredisspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "redis.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "86400",
+            "ResourceRecords": [
+              "redis-prod.lferji.0001.use1.cache.amazonaws.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsredis2spiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "redis2.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "redis2.lferji.0001.use1.cache.amazonaws.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsstagingspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "staging.spiritedmedia.com.",
+            "Type": "A",
+            "TTL": "300",
+            "ResourceRecords": [
+              "52.200.22.207"
+            ]
+          }
+        ]
+      }
+    },
+    "dns052stagingspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "\\052.staging.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "staging.spiritedmedia.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsamazonsesstagingspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "_amazonses.staging.spiritedmedia.com.",
+            "Type": "TXT",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "\"PQ0uXEtlNuUHLdQ7v+Tzf6Ym0Ab0VOJ7CZYjGo5PRA4=\""
+            ]
+          }
+        ]
+      }
+    },
+    "dnsgylmd66zmfz5wa5mmlmmkcnxpp3ackledomainkeystagingspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "gylmd66zmfz5wa5mmlmmkcnxpp3ackle._domainkey.staging.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "gylmd66zmfz5wa5mmlmmkcnxpp3ackle.dkim.amazonses.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnskq3pffiyyk5bpjw5axxh4hcqi2n5kesmdomainkeystagingspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "kq3pffiyyk5bpjw5axxh4hcqi2n5kesm._domainkey.staging.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "kq3pffiyyk5bpjw5axxh4hcqi2n5kesm.dkim.amazonses.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsmjozpxu6jmvc766z7dj2tbeh5lxsjtcxdomainkeystagingspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "mjozpxu6jmvc766z7dj2tbeh5lxsjtcx._domainkey.staging.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "mjozpxu6jmvc766z7dj2tbeh5lxsjtcx.dkim.amazonses.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsdenveritestagingspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "denverite.staging.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "staging.spiritedmedia.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnstachyonstagingspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "tachyon-staging.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "d-9bmmrvryj9.execute-api.us-east-1.amazonaws.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnstachyonspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "tachyon.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "d-uqvhv7cose.execute-api.us-east-1.amazonaws.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnstheinclinespiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "theincline.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "spiritedmedia.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnswwwspiritedmediacom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmediacom"
+        },
+        "RecordSets": [
+          {
+            "Name": "www.spiritedmedia.com.",
+            "Type": "CNAME",
+            "TTL": "86400",
+            "ResourceRecords": [
+              "spiritedmedia.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsspiritedmedia": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmedia"
+        },
+        "RecordSets": [
+          {
+            "Name": "spirited.media.",
+            "Type": "TXT",
+            "TTL": "300",
+            "ResourceRecords": [
+              "\"google-site-verification=cqLebWSgp53nDwLd3oBNx72HSF_Nm1h9ZhswdX9cAoA\""
+            ]
+          }
+        ]
+      }
+    },
+    "dnsaspiritedmedia": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmedia"
+        },
+        "RecordSets": [
+          {
+            "Name": "a.spirited.media.",
+            "Type": "CNAME",
+            "TTL": "3600",
+            "ResourceRecords": [
+              "spiritedmedia.b-cdn.net"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsbspiritedmedia": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonespiritedmedia"
+        },
+        "RecordSets": [
+          {
+            "Name": "b.spirited.media.",
+            "Type": "CNAME",
+            "TTL": "900",
+            "ResourceRecords": [
+              "tachyon.b-cdn.net"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsbillypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "billypenn.com.",
+            "Type": "TXT",
+            "TTL": "3600",
+            "ResourceRecords": [
+              "\"google-site-verification=FuNt0Syqxv473mo4-vdzFVvdDInQWg4CQNbnDo4Zkao\"",
+              "\"v=spf1 include:_spf.google.com include:servers.mcsv.net ~all\"",
+              "\"google-site-verification=K8ly2SD4QdpWM3FXuvIH00s4E3yk4xMGwfesohhrCT8\"",
+              "\"facebook-domain-verification=tm6nw8m840nmqntdvqc19evb6lij45\""
+            ]
+          }
+        ]
+      }
+    },
+    "dns4d60c4a1542084b12b998a5b382c6f29billypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "4d60c4a1542084b12b998a5b382c6f29.billypenn.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "verify.bing.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsamazonsesbillypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "_amazonses.billypenn.com.",
+            "Type": "TXT",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "\"XkVThkIC+87pkqIvRrvioZrAyDsGcDDSjbqDoQR3iJw=\""
+            ]
+          }
+        ]
+      }
+    },
+    "dnsdkdomainkeybillypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "dk._domainkey.billypenn.com.",
+            "Type": "TXT",
+            "TTL": "300",
+            "ResourceRecords": [
+              "\"v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDhkOo8s6fh9Byz1uy69tfQ6eUnzi/5P22EWccwI1PdmCpiyNwZcq3vOS2MHbVYB+ZY6wbBlAFym8EHbZY9OTlJ3+dzt8qTUNW5olkNVl4ecDv3XO2ML8q5sxQL+dwQU6UAQiDAAC/ZRWwiXHrSsr90pqH1Q0vhB7Kp6DHrWYJquQIDAQAB\""
+            ]
+          }
+        ]
+      }
+    },
+    "dnse7eu442lz6p3ajgiddyvepm6z7mbj37jdomainkeybillypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "e7eu442lz6p3ajgiddyvepm6z7mbj37j._domainkey.billypenn.com.",
+            "Type": "CNAME",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "e7eu442lz6p3ajgiddyvepm6z7mbj37j.dkim.amazonses.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsgoogledomainkeybillypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "google._domainkey.billypenn.com.",
+            "Type": "TXT",
+            "TTL": "3600",
+            "ResourceRecords": [
+              "\"v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCgTf2cSyoTI9jrjV9loO47CBJUkec1QvYBlwVrBsPZFD9paMul62/SgbGnwJ00KazMsE68tpkHXDieXp9mk7u7y5wrBG5VokcriJ279cjdfw2iK57eTvxpapQ6BrIfOa9DJNytuqAQHB7vZJxQQZft14OH2HzSe8ri3AdWO2B+vQIDAQAB\""
+            ]
+          }
+        ]
+      }
+    },
+    "dnsk1domainkeybillypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "k1._domainkey.billypenn.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "dkim.mcsv.net"
+            ]
+          }
+        ]
+      }
+    },
+    "dnskk5jzkiv2h6cohypvbh3dnqgdydurlkkdomainkeybillypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "kk5jzkiv2h6cohypvbh3dnqgdydurlkk._domainkey.billypenn.com.",
+            "Type": "CNAME",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "kk5jzkiv2h6cohypvbh3dnqgdydurlkk.dkim.amazonses.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsy6rhh4mn6nbrknad5v77s273g5ip55xmdomainkeybillypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "y6rhh4mn6nbrknad5v77s273g5ip55xm._domainkey.billypenn.com.",
+            "Type": "CNAME",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "y6rhh4mn6nbrknad5v77s273g5ip55xm.dkim.amazonses.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnse2cafdc3091443e3ab0850d18b688297billypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "_e2cafdc3091443e3ab0850d18b688297.billypenn.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "_dd66ea3da6431cd71563842dcef90694.acm-validations.aws."
+            ]
+          }
+        ]
+      }
+    },
+    "dnsampbillypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "amp.billypenn.com.",
+            "Type": "CNAME",
+            "TTL": "86400",
+            "ResourceRecords": [
+              "cdn.relaymedia.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsstagingbillypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "staging.billypenn.com.",
+            "Type": "CNAME",
+            "TTL": "3600",
+            "ResourceRecords": [
+              "staging.spiritedmedia.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsstaging2billypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "staging2.billypenn.com.",
+            "Type": "CNAME",
+            "TTL": "3600",
+            "ResourceRecords": [
+              "staging.spiritedmedia.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnswwwbillypenncom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonebillypenncom"
+        },
+        "RecordSets": [
+          {
+            "Name": "www.billypenn.com.",
+            "Type": "CNAME",
+            "TTL": "86400",
+            "ResourceRecords": [
+              "billypenn.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnstheinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "theincline.com.",
+            "Type": "TXT",
+            "TTL": "300",
+            "ResourceRecords": [
+              "\"v=spf1 include:_spf.google.com include:servers.mcsv.net ~all\"",
+              "\"google-site-verification=8y9NjWxriHNIvmJBWaoXb9xccITiJC090rp8OKggQ70\"",
+              "\"facebook-domain-verification=ufc1amrpwx1gttfz8xvmw6dlipnev0\""
+            ]
+          }
+        ]
+      }
+    },
+    "dns49f4a71fa2518cd7ff859e972458d953theinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "49f4a71fa2518cd7ff859e972458d953.theincline.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "verify.bing.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dns1323e82e3a3368c88dfffe06cbe96bc8theinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "_1323e82e3a3368c88dfffe06cbe96bc8.theincline.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "_5956e7ed13bd375a1dc56b5025da5065.acm-validations.aws."
+            ]
+          }
+        ]
+      }
+    },
+    "dnsamazonsestheinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "_amazonses.theincline.com.",
+            "Type": "TXT",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "\"Vfyn4pAnS7/k9ma0cT16as0fr1riEiduP6mi+EVOPxM=\""
+            ]
+          }
+        ]
+      }
+    },
+    "dnsb7gprkdcesudhzpkf4qzexxgj6wxrczidomainkeytheinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "b7gprkdcesudhzpkf4qzexxgj6wxrczi._domainkey.theincline.com.",
+            "Type": "CNAME",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "b7gprkdcesudhzpkf4qzexxgj6wxrczi.dkim.amazonses.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsdkdomainkeytheinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "dk._domainkey.theincline.com.",
+            "Type": "TXT",
+            "TTL": "300",
+            "ResourceRecords": [
+              "\"v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDhkOo8s6fh9Byz1uy69tfQ6eUnzi/5P22EWccwI1PdmCpiyNwZcq3vOS2MHbVYB+ZY6wbBlAFym8EHbZY9OTlJ3+dzt8qTUNW5olkNVl4ecDv3XO2ML8q5sxQL+dwQU6UAQiDAAC/ZRWwiXHrSsr90pqH1Q0vhB7Kp6DHrWYJquQIDAQAB\""
+            ]
+          }
+        ]
+      }
+    },
+    "dnsgoogledomainkeytheinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "google._domainkey.theincline.com.",
+            "Type": "TXT",
+            "TTL": "3600",
+            "ResourceRecords": [
+              "\"v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQChZSCvbAZfX/WIFW1Z8YQTP2CeMm2vftIv19As0exJ2mdlOnyl9eDeOLLlFJCcCX0QHYV0A3+VSF6ieHuoztnWkkJRUIPtswqQmh3z/orzqVOsR4/Ata6KNJ5+m+ICB8+EVVMdU95UZGr13Fah2FL40dudx1wmrrnQ0sDldsZ97QIDAQAB\""
+            ]
+          }
+        ]
+      }
+    },
+    "dnsk1domainkeytheinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "k1._domainkey.theincline.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "dkim.mcsv.net"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsmandrilldomainkeytheinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "mandrill._domainkey.theincline.com.",
+            "Type": "TXT",
+            "TTL": "300",
+            "ResourceRecords": [
+              "\"v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrLHiExVd55zd/IQ/J/mRwSRMAocV/hMB3jXwaHH36d9NaVynQFYV8NaWi69c1veUtRzGt7yAioXqLj7Z4TeEUoOLgrKsn8YnckGs9i3B3tVFB+Ch/4mPhXWiNfNdynHWBcPcbJ8kjEQ2U8y78dHZj1YeRXXVvWob2OaKynO8/lQIDAQAB;\""
+            ]
+          }
+        ]
+      }
+    },
+    "dnsoxlph34y45fxfwu26xr7hcmq336mdx3zdomainkeytheinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "oxlph34y45fxfwu26xr7hcmq336mdx3z._domainkey.theincline.com.",
+            "Type": "CNAME",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "oxlph34y45fxfwu26xr7hcmq336mdx3z.dkim.amazonses.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsytnkcm3qpkug6tm4zxfwmxcr2zu64h7kdomainkeytheinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "ytnkcm3qpkug6tm4zxfwmxcr2zu64h7k._domainkey.theincline.com.",
+            "Type": "CNAME",
+            "TTL": "1800",
+            "ResourceRecords": [
+              "ytnkcm3qpkug6tm4zxfwmxcr2zu64h7k.dkim.amazonses.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsamptheinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "amp.theincline.com.",
+            "Type": "CNAME",
+            "TTL": "86400",
+            "ResourceRecords": [
+              "cdn.relaymedia.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsstagingtheinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "staging.theincline.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "staging.spiritedmedia.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnswwwtheinclinecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonetheinclinecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "www.theincline.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "theincline.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsdenveritecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonedenveritecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "denverite.com.",
+            "Type": "TXT",
+            "TTL": "300",
+            "ResourceRecords": [
+              "\"v=spf1 include:_spf.google.com include:servers.mcsv.net ~all\"",
+              "\"google-site-verification=5CkpIBerfPPbhcWDbS6bqkVhqRsvkVUuJMdplzhpYc0\"",
+              "\"google-site-verification=ooOquYYXRqx2ViubCYnxiciCRCfLYjYTq7MmX4PSMNM\"",
+              "\"facebook-domain-verification=ad38tmm5cnm0ujoyos0qwnv3jg4fks\""
+            ]
+          }
+        ]
+      }
+    },
+    "dnsb95775be8c80de71fda7a9f5bb7da68cdenveritecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonedenveritecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "_b95775be8c80de71fda7a9f5bb7da68c.denverite.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "_cb6b3a3973a85ee3795f7a77d0089790.acm-validations.aws."
+            ]
+          }
+        ]
+      }
+    },
+    "dnsdomainconnectdenveritecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonedenveritecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "_domainconnect.denverite.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "_domainconnect.gd.domaincontrol.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsk1domainkeydenveritecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonedenveritecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "k1._domainkey.denverite.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "dkim.mcsv.net"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsb9ccf874336a6ff36ea1d757a92b9069denveritecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonedenveritecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "b9ccf874336a6ff36ea1d757a92b9069.denverite.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "verify.bing.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsftpdenveritecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonedenveritecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "ftp.denverite.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "denverite.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnsstagingdenveritecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonedenveritecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "staging.denverite.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "staging.spiritedmedia.com"
+            ]
+          }
+        ]
+      }
+    },
+    "dnswwwdenveritecom": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "zonedenveritecom"
+        },
+        "RecordSets": [
+          {
+            "Name": "www.denverite.com.",
+            "Type": "CNAME",
+            "TTL": "300",
+            "ResourceRecords": [
+              "denverite.com"
+            ]
+          }
+        ]
+      }
+    },
+    "subnet54e6ac7e": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.2.0/24",
+        "AvailabilityZone": "us-east-1b",
+        "VpcId": "vpc-4f69c628",
+        "Tags": [
+          {
+            "Key": "Environment",
+            "Value": "Production"
+          },
+          {
+            "Key": "Name",
+            "Value": "10.0.2.0 - Prod - Public"
+          }
+        ]
+      }
+    },
+    "subnet0c5b5e7a": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.4.0/24",
+        "AvailabilityZone": "us-east-1c",
+        "VpcId": "vpc-4f69c628",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "10.0.4.0 - Prod - Public"
+          },
+          {
+            "Key": "Environment",
+            "Value": "Production"
+          }
+        ]
+      }
+    },
+    "igw918ac1f5": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Prod - Spirited Media"
+          },
+          {
+            "Key": "Environment",
+            "Value": "Production"
+          }
+        ]
+      }
+    },
+    "dopta7b048c3": {
+      "Type": "AWS::EC2::DHCPOptions",
+      "Properties": {
+        "DomainName": "ec2.internal",
+        "DomainNameServers": [
+          "AmazonProvidedDNS"
+        ]
+      }
+    },
+    "acl7e26b119": {
+      "Type": "AWS::EC2::NetworkAcl",
+      "Properties": {
+        "VpcId": "vpc-4f69c628"
+      }
+    },
+    "rtb942713f3": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": "vpc-4f69c628",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Prod - Private - Spirited Media"
+          }
+        ]
+      }
+    },
+    "rtb74142013": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": "vpc-4f69c628",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Prod - Public - Spirited Media"
+          }
+        ]
+      }
+    },
+    "distd9nsjsuh3e2lmcloudfrontnet": {
+      "Type": "AWS::CloudFront::Distribution",
+      "Properties": {
+        "DistributionConfig": {
+          "Aliases": [
+            "b.spirited.media",
+            "a.spirited.media"
+          ],
+          "Comment": "For use with our Tachyon@Edge Lambda function for dynamically resizing images on the fly.",
+          "Enabled": true,
+          "PriceClass": "PriceClass_100",
+          "CacheBehaviors": [
+            {
+              "TargetOriginId": "S3-spiritedmedia-com",
+              "PathPattern": "*.css",
+              "ViewerProtocolPolicy": "allow-all",
+              "MinTTL": 0,
+              "AllowedMethods": [
+                "HEAD",
+                "GET"
+              ],
+              "CachedMethods": [
+                "HEAD",
+                "GET"
+              ],
+              "ForwardedValues": {
+                "QueryString": true,
+                "Cookies": {
+                  "Forward": "none"
+                }
+              }
+            },
+            {
+              "TargetOriginId": "S3-spiritedmedia-com",
+              "PathPattern": "*.js",
+              "ViewerProtocolPolicy": "allow-all",
+              "MinTTL": 0,
+              "AllowedMethods": [
+                "HEAD",
+                "GET"
+              ],
+              "CachedMethods": [
+                "HEAD",
+                "GET"
+              ],
+              "ForwardedValues": {
+                "QueryString": true,
+                "Cookies": {
+                  "Forward": "none"
+                }
+              }
+            }
+          ],
+          "DefaultCacheBehavior": {
+            "TargetOriginId": "S3-spiritedmedia-com",
+            "ViewerProtocolPolicy": "redirect-to-https",
+            "MinTTL": 0,
+            "AllowedMethods": [
+              "HEAD",
+              "GET"
+            ],
+            "CachedMethods": [
+              "HEAD",
+              "GET"
+            ],
+            "ForwardedValues": {
+              "QueryString": true,
+              "Cookies": {
+                "Forward": "none"
+              }
+            }
+          },
+          "Origins": [
+            {
+              "DomainName": "spiritedmedia-com.s3.amazonaws.com",
+              "Id": "S3-spiritedmedia-com",
+              "S3OriginConfig": {
+              }
+            }
+          ],
+          "Restrictions": {
+            "GeoRestriction": {
+              "RestrictionType": "none",
+              "Locations": [
+
+              ]
+            }
+          },
+          "ViewerCertificate": {
+            "CloudFrontDefaultCertificate": "true",
+            "MinimumProtocolVersion": "TLSv1"
+          }
+        }
+      }
+    },
+    "asgAutoscaleProductionSpiritedMedia": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "AvailabilityZones": [
+          "us-east-1b",
+          "us-east-1c"
+        ],
+        "Cooldown": "120",
+        "DesiredCapacity": "2",
+        "HealthCheckGracePeriod": "300",
+        "HealthCheckType": "ELB",
+        "MaxSize": "4",
+        "MinSize": "2",
+        "VPCZoneIdentifier": [
+          {
+            "Ref": "subnet54e6ac7e"
+          },
+          {
+            "Ref": "subnet0c5b5e7a"
+          }
+        ],
+        "NotificationConfigurations": [
+          {
+            "TopicARN": "arn:aws:sns:us-east-1:194137505639:CodeDeploy",
+            "NotificationTypes": [
+              "autoscaling:EC2_INSTANCE_LAUNCH",
+              "autoscaling:EC2_INSTANCE_LAUNCH_ERROR",
+              "autoscaling:EC2_INSTANCE_TERMINATE",
+              "autoscaling:EC2_INSTANCE_TERMINATE_ERROR"
+            ]
+          }
+        ],
+        "LaunchConfigurationName": {
+          "Ref": "lc201901302ProductionSpiritedMedia"
+        },
+        "Tags": [
+          {
+            "Key": "Environment",
+            "Value": "Production",
+            "PropagateAtLaunch": true
+          }
+        ],
+        "MetricsCollection": [
+          {
+            "Granularity": "1Minute",
+            "Metrics": [
+              "GroupPendingInstances",
+              "GroupInServiceInstances",
+              "GroupStandbyInstances",
+              "GroupMinSize",
+              "GroupDesiredCapacity",
+              "GroupTerminatingInstances",
+              "GroupMaxSize",
+              "GroupTotalInstances"
+            ]
+          }
+        ],
+        "TerminationPolicies": [
+          "ClosestToNextInstanceHour"
+        ]
+      }
+    },
+    "lc20181002ProductionSpiritedMedia": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+      "Properties": {
+        "AssociatePublicIpAddress": true,
+        "ImageId": "ami-03c0dfe17f6d49c08",
+        "InstanceType": "t2.small",
+        "KeyName": "EC2 - Prod - Spirited Media",
+        "IamInstanceProfile": "CodeDeploy-EC2",
+        "SecurityGroups": [
+          {
+            "Ref": "sgProdSSHAccess"
+          },
+          {
+            "Ref": "sgWebServerProdSpiritedMedia"
+          }
+        ],
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/sda1",
+            "Ebs": {
+              "SnapshotId": "snap-09c8b55afef8d0069",
+              "VolumeSize": 100
+            }
+          }
+        ]
+      }
+    },
+    "lc201901302ProductionSpiritedMedia": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+      "Properties": {
+        "AssociatePublicIpAddress": true,
+        "ImageId": "ami-0c04e9dd0f0096810",
+        "InstanceType": "t2.small",
+        "KeyName": "EC2 - Prod - Spirited Media",
+        "IamInstanceProfile": "CodeDeploy-EC2",
+        "SecurityGroups": [
+          {
+            "Ref": "sgProdSSHAccess"
+          },
+          {
+            "Ref": "sgWebServerProdSpiritedMedia"
+          }
+        ],
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/sda1",
+            "Ebs": {
+              "SnapshotId": "snap-02990116bc5a5d86d",
+              "VolumeSize": 100
+            }
+          }
+        ]
+      }
+    },
+    "rdsprodspiritedmediaaurora": {
+      "Type": "AWS::RDS::DBInstance",
+      "Properties": {
+        "AllocatedStorage": "0",
+        "AllowMajorVersionUpgrade": "false",
+        "AutoMinorVersionUpgrade": "true",
+        "DBInstanceClass": "db.t2.medium",
+        "Port": "3306",
+        "StorageType": "aurora",
+        "BackupRetentionPeriod": "0",
+        "MasterUsername": "spiritedmediacom",
+        "MasterUserPassword": "MyPassword",
+        "PreferredBackupWindow": "03:46-04:16",
+        "PreferredMaintenanceWindow": "wed:05:07-wed:05:37",
+        "DBName": "MyDatabase",
+        "Engine": "aurora",
+        "EngineVersion": "5.6.10a",
+        "LicenseModel": "general-public-license",
+        "DBSubnetGroupName": {
+          "Ref": "dbsubnetdefaultvpc4f69c628"
+        },
+        "DBParameterGroupName": {
+          "Ref": "dbpgrdsprodauroraspiritedmedia"
+        },
+        "VPCSecurityGroups": [
+          {
+            "Ref": "sgRDSProdSpiritedMedia"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "workload-type",
+            "Value": "other"
+          }
+        ]
+      }
+    },
+    "cacheredisprod": {
+      "Type": "AWS::ElastiCache::CacheCluster",
+      "Properties": {
+        "AutoMinorVersionUpgrade": "true",
+        "AZMode": "single-az",
+        "CacheNodeType": "cache.t2.small",
+        "Engine": "redis",
+        "EngineVersion": "2.8.24",
+        "NumCacheNodes": "1",
+        "PreferredAvailabilityZone": "us-east-1b",
+        "PreferredMaintenanceWindow": "tue:08:30-tue:09:30",
+        "CacheSubnetGroupName": {
+          "Ref": "cachesubnetredisprodspiritedmedia"
+        },
+        "VpcSecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "sgWebServerProdSpiritedMedia",
+              "GroupId"
+            ]
+          }
+        ]
+      }
+    },
+    "s3spiritedmediacom": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "AccessControl": "Private",
+        "CorsConfiguration": {
+          "CorsRules": [
+            {
+              "AllowedHeaders": [
+                "Authorization"
+              ],
+              "AllowedMethods": [
+                "GET"
+              ],
+              "AllowedOrigins": [
+                "*"
+              ],
+              "MaxAge": "3000"
+            }
+          ]
+        },
+        "VersioningConfiguration": {
+          "Status": "Suspended"
+        }
+      }
+    },
+    "dbsubnetdefaultvpc4f69c628": {
+      "Type": "AWS::RDS::DBSubnetGroup",
+      "Properties": {
+        "DBSubnetGroupDescription": "Created from the RDS Management Console",
+        "SubnetIds": [
+          "subnet-115b5e67",
+          "subnet-4de6ac67",
+          {
+            "Ref": "subnet54e6ac7e"
+          },
+          {
+            "Ref": "subnet0c5b5e7a"
+          }
+        ]
+      }
+    },
+    "dbpgrdsprodauroraspiritedmedia": {
+      "Type": "AWS::RDS::DBParameterGroup",
+      "Properties": {
+        "Description": "Custom Aurora Parameters",
+        "Family": "aurora5.6",
+        "Parameters": {
+          "aurora_lab_mode": "0",
+          "aurora_pq": "1",
+          "binlog_cache_size": "32768",
+          "default_tmp_storage_engine": "InnoDB",
+          "explicit_defaults_for_timestamp": "1",
+          "innodb_adaptive_hash_index": "0",
+          "innodb_buffer_pool_size": "{DBInstanceClassMemory*3/4}",
+          "innodb_flush_method": "O_DIRECT"
+        }
+      }
+    },
+    "cachesubnetredisprodspiritedmedia": {
+      "Type": "AWS::ElastiCache::SubnetGroup",
+      "Properties": {
+        "Description": "Production Redis Cluster",
+        "SubnetIds": [
+          "subnet-4de6ac67",
+          "subnet-115b5e67"
+        ]
+      }
+    },
+    "topicAutoscale": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "DisplayName": "Autoscale"
+      }
+    },
+    "topicCodeDeploy": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "DisplayName": "CodeDeploy"
+      }
+    },
+    "topicEC2Trouble": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "DisplayName": "EC2Trouble",
+        "Subscription": [
+          {
+            "Endpoint": "systems@spiritedmedia.com",
+            "Protocol": "email"
+          }
+        ]
+      }
+    },
+    "topicRDSTrouble": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "DisplayName": "RDSTrouble",
+        "Subscription": [
+          {
+            "Endpoint": "systems@spiritedmedia.com",
+            "Protocol": "email"
+          }
+        ]
+      }
+    },
+    "sgProductionSpiritedMediaWebServerSecurityGroup15HHOFAZH785O": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Enable HTTPS access via port 443",
+        "VpcId": "vpc-76a57d11",
+        "Tags": [
+          {
+            "Key": "Environment",
+            "Value": "Production"
+          }
+        ]
+      }
+    },
+    "sgProdSSHAccess": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "SSH access for developers",
+        "VpcId": "vpc-4f69c628",
+        "Tags": [
+          {
+            "Key": "Environment",
+            "Value": "Production"
+          }
+        ]
+      }
+    },
+    "sgRDSProdSpiritedMedia": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "RDS rules",
+        "VpcId": "vpc-4f69c628",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "RDS - Prod - Spirited Media"
+          },
+          {
+            "Key": "Environment",
+            "Value": "Production"
+          }
+        ]
+      }
+    },
+    "sgELBProdSpiritedMedia": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "for the Load Balancer",
+        "VpcId": "vpc-4f69c628",
+        "Tags": [
+          {
+            "Key": "Environment",
+            "Value": "Production"
+          }
+        ]
+      }
+    },
+    "sgWebServerProdSpiritedMedia": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "For EC2 web server instances",
+        "VpcId": "vpc-4f69c628",
+        "Tags": [
+          {
+            "Key": "Environment",
+            "Value": "Production"
+          }
+        ]
+      }
+    },
+    "snspolicyAutoscale": {
+      "Type": "AWS::SNS::TopicPolicy",
+      "Properties": {
+        "Topics": [
+          {
+            "Ref": "topicAutoscale"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2008-10-17",
+          "Id": "__default_policy_ID",
+          "Statement": [
+            {
+              "Sid": "__default_statement_ID",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*"
+              },
+              "Action": [
+                "SNS:GetTopicAttributes",
+                "SNS:SetTopicAttributes",
+                "SNS:AddPermission",
+                "SNS:RemovePermission",
+                "SNS:DeleteTopic",
+                "SNS:Subscribe",
+                "SNS:ListSubscriptionsByTopic",
+                "SNS:Publish",
+                "SNS:Receive"
+              ],
+              "Resource": {
+                "Ref": "topicAutoscale"
+              },
+              "Condition": {
+                "StringEquals": {
+                  "AWS:SourceOwner": "194137505639"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "snspolicyCodeDeploy": {
+      "Type": "AWS::SNS::TopicPolicy",
+      "Properties": {
+        "Topics": [
+          {
+            "Ref": "topicCodeDeploy"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2008-10-17",
+          "Id": "__default_policy_ID",
+          "Statement": [
+            {
+              "Sid": "__default_statement_ID",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*"
+              },
+              "Action": [
+                "SNS:GetTopicAttributes",
+                "SNS:SetTopicAttributes",
+                "SNS:AddPermission",
+                "SNS:RemovePermission",
+                "SNS:DeleteTopic",
+                "SNS:Subscribe",
+                "SNS:ListSubscriptionsByTopic",
+                "SNS:Publish",
+                "SNS:Receive"
+              ],
+              "Resource": {
+                "Ref": "topicCodeDeploy"
+              },
+              "Condition": {
+                "StringEquals": {
+                  "AWS:SourceOwner": "194137505639"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "snspolicyEC2Trouble": {
+      "Type": "AWS::SNS::TopicPolicy",
+      "Properties": {
+        "Topics": [
+          {
+            "Ref": "topicEC2Trouble"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2008-10-17",
+          "Id": "__default_policy_ID",
+          "Statement": [
+            {
+              "Sid": "__default_statement_ID",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*"
+              },
+              "Action": [
+                "SNS:GetTopicAttributes",
+                "SNS:SetTopicAttributes",
+                "SNS:AddPermission",
+                "SNS:RemovePermission",
+                "SNS:DeleteTopic",
+                "SNS:Subscribe",
+                "SNS:ListSubscriptionsByTopic",
+                "SNS:Publish",
+                "SNS:Receive"
+              ],
+              "Resource": {
+                "Ref": "topicEC2Trouble"
+              },
+              "Condition": {
+                "StringEquals": {
+                  "AWS:SourceOwner": "194137505639"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "snspolicyRDSTrouble": {
+      "Type": "AWS::SNS::TopicPolicy",
+      "Properties": {
+        "Topics": [
+          {
+            "Ref": "topicRDSTrouble"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2008-10-17",
+          "Id": "__default_policy_ID",
+          "Statement": [
+            {
+              "Sid": "__default_statement_ID",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*"
+              },
+              "Action": [
+                "SNS:GetTopicAttributes",
+                "SNS:SetTopicAttributes",
+                "SNS:AddPermission",
+                "SNS:RemovePermission",
+                "SNS:DeleteTopic",
+                "SNS:Subscribe",
+                "SNS:ListSubscriptionsByTopic",
+                "SNS:Publish",
+                "SNS:Receive"
+              ],
+              "Resource": {
+                "Ref": "topicRDSTrouble"
+              },
+              "Condition": {
+                "StringEquals": {
+                  "AWS:SourceOwner": "194137505639"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "alarmAutoscaleCPUBalance": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ActionsEnabled": "true",
+        "AlarmDescription": "When the CPU Credits for our autoscaling group gets too low",
+        "ComparisonOperator": "LessThanOrEqualToThreshold",
+        "EvaluationPeriods": "3",
+        "MetricName": "CPUCreditBalance",
+        "Namespace": "AWS/EC2",
+        "Period": "300",
+        "Statistic": "Average",
+        "Threshold": "20.0",
+        "AlarmActions": [
+          "arn:aws:sns:us-east-1:194137505639:EC2Trouble"
+        ],
+        "Dimensions": [
+          {
+            "Name": "AutoScalingGroupName",
+            "Value": "Autoscale - Production - Spirited Media"
+          }
+        ]
+      }
+    },
+    "alarmLowCPUCredits": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ActionsEnabled": "true",
+        "ComparisonOperator": "LessThanOrEqualToThreshold",
+        "EvaluationPeriods": "1",
+        "MetricName": "CPUCreditBalance",
+        "Namespace": "AWS/RDS",
+        "Period": "900",
+        "Statistic": "Average",
+        "Threshold": "25.0",
+        "InsufficientDataActions": [
+          "arn:aws:sns:us-east-1:194137505639:RDSTrouble"
+        ],
+        "Dimensions": [
+          {
+            "Name": "DBInstanceIdentifier",
+            "Value": "prod-spiritedmedia-aurora"
+          }
+        ]
+      }
+    },
+    "acl1": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Egress": "true",
+        "Protocol": "-1",
+        "RuleAction": "allow",
+        "RuleNumber": "100",
+        "NetworkAclId": {
+          "Ref": "acl7e26b119"
+        }
+      }
+    },
+    "acl2": {
+      "Type": "AWS::EC2::NetworkAclEntry",
+      "Properties": {
+        "CidrBlock": "0.0.0.0/0",
+        "Protocol": "-1",
+        "RuleAction": "allow",
+        "RuleNumber": "100",
+        "NetworkAclId": {
+          "Ref": "acl7e26b119"
+        }
+      }
+    },
+    "subnetacl1": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "acl7e26b119"
+        },
+        "SubnetId": "subnet-4de6ac67"
+      }
+    },
+    "subnetacl2": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "acl7e26b119"
+        },
+        "SubnetId": {
+          "Ref": "subnet54e6ac7e"
+        }
+      }
+    },
+    "subnetacl3": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "acl7e26b119"
+        },
+        "SubnetId": {
+          "Ref": "subnet0c5b5e7a"
+        }
+      }
+    },
+    "subnetacl4": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "acl7e26b119"
+        },
+        "SubnetId": "subnet-115b5e67"
+      }
+    },
+    "gw1": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": "vpc-4f69c628",
+        "InternetGatewayId": {
+          "Ref": "igw918ac1f5"
+        }
+      }
+    },
+    "subnetroute2": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "rtb942713f3"
+        },
+        "SubnetId": "subnet-115b5e67"
+      }
+    },
+    "subnetroute3": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "rtb942713f3"
+        },
+        "SubnetId": "subnet-4de6ac67"
+      }
+    },
+    "subnetroute4": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "rtb74142013"
+        },
+        "SubnetId": {
+          "Ref": "subnet0c5b5e7a"
+        }
+      }
+    },
+    "subnetroute5": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "rtb74142013"
+        },
+        "SubnetId": {
+          "Ref": "subnet54e6ac7e"
+        }
+      }
+    },
+    "route1": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "RouteTableId": {
+          "Ref": "rtb74142013"
+        },
+        "GatewayId": {
+          "Ref": "igw918ac1f5"
+        }
+      },
+      "DependsOn": "gw1"
+    },
+    "ingress1": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgProductionSpiritedMediaWebServerSecurityGroup15HHOFAZH785O"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "443",
+        "ToPort": "443",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "ingress2": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgProdSSHAccess"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22",
+        "ToPort": "22",
+        "CidrIp": "100.16.224.46/32"
+      }
+    },
+    "ingress3": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgProdSSHAccess"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22",
+        "ToPort": "22",
+        "CidrIp": "69.140.29.219/32"
+      }
+    },
+    "ingress4": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgProdSSHAccess"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22",
+        "ToPort": "22",
+        "CidrIp": "172.56.3.65/32"
+      }
+    },
+    "ingress5": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgProdSSHAccess"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22",
+        "ToPort": "22",
+        "CidrIp": "172.56.2.10/32"
+      }
+    },
+    "ingress6": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgProdSSHAccess"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22",
+        "ToPort": "22",
+        "CidrIp": "173.64.93.27/32"
+      }
+    },
+    "ingress7": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgProdSSHAccess"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22",
+        "ToPort": "22",
+        "CidrIp": "172.93.226.234/32"
+      }
+    },
+    "ingress8": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgRDSProdSpiritedMedia"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "3306",
+        "ToPort": "3306",
+        "SourceSecurityGroupId": {
+          "Ref": "sgWebServerProdSpiritedMedia"
+        },
+        "SourceSecurityGroupOwnerId": "194137505639"
+      }
+    },
+    "ingress9": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgELBProdSpiritedMedia"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "80",
+        "ToPort": "80",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "ingress10": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgELBProdSpiritedMedia"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22222",
+        "ToPort": "22222",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "ingress11": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgELBProdSpiritedMedia"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "443",
+        "ToPort": "443",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "ingress12": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgWebServerProdSpiritedMedia"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "80",
+        "ToPort": "80",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "ingress13": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgWebServerProdSpiritedMedia"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "22222",
+        "ToPort": "22222",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "ingress14": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgWebServerProdSpiritedMedia"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "6379",
+        "ToPort": "6379",
+        "SourceSecurityGroupId": {
+          "Ref": "sgWebServerProdSpiritedMedia"
+        },
+        "SourceSecurityGroupOwnerId": "194137505639"
+      }
+    },
+    "ingress15": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgWebServerProdSpiritedMedia"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": "443",
+        "ToPort": "443",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "egress1": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgProductionSpiritedMediaWebServerSecurityGroup15HHOFAZH785O"
+        },
+        "IpProtocol": "-1",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "egress2": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgProdSSHAccess"
+        },
+        "IpProtocol": "-1",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "egress3": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgRDSProdSpiritedMedia"
+        },
+        "IpProtocol": "-1",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "egress4": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgELBProdSpiritedMedia"
+        },
+        "IpProtocol": "-1",
+        "CidrIp": "0.0.0.0/0"
+      }
+    },
+    "egress5": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "sgWebServerProdSpiritedMedia"
+        },
+        "IpProtocol": "-1",
+        "CidrIp": "0.0.0.0/0"
+      }
+    }
+  },
+  "Description": "Spin up a production environment for Spirited Media WordPress Sites."
+}
