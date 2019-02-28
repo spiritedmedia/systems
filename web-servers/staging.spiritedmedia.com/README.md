@@ -1,14 +1,21 @@
-Since the staging environment is for testing we can simplify the setup. Everything is run on the same server (WordPress, Redis for caching, MySQL database, media uploads). We also employ [Local Photon](https://github.com/spiritedmedia/local-photon) so images can be dynamically resized via URL and they can be fetched from an external domain (like our CDN a.spirited.media)
+Since the staging environment is for testing we can simplify the setup.
+Everything is run on the same server (WordPress, Redis for caching, MySQL
+database, media uploads). We also employ [Local
+Photon](https://github.com/spiritedmedia/local-photon) so images can be
+dynamically resized via URL and they can be fetched from an external domain
+(like our CDN a.spirited.media)
 
 # Initial Image
-Create a new instance based off of an Ubuntu AMI `Ubuntu Server 18.04 LTS (HVM), SSD Volume Type (64-bit)`
+Create a new instance based off of an Ubuntu AMI `Ubuntu Server 18.04 LTS (HVM),
+SSD Volume Type (64-bit)`
 
-Use an HVM AMI not a PV AMI. Apparently HVM is better. See [http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/virtualization_types.html](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/virtualization_types.html)
+Use an HVM AMI not a PV AMI. Apparently HVM is better. See
+[http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/virtualization_types.html](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/virtualization_types.html)
 
- - Instance type: `t2.micro` for staging, `t2.medium` for production
- - VPC: Stage - Spirited Media
- - IAM role: CodeDeploy-EC2
- - Key pair name: EC2 - Stage - Spirited Media
+- Instance type: `t2.micro` for staging, `t2.medium` for production
+- VPC: Stage - Spirited Media
+- IAM role: CodeDeploy-EC2
+- Key pair name: EC2 - Stage - Spirited Media
 
 ## User Data
 ```
@@ -21,22 +28,26 @@ source /var/www/staging.spiritedmedia.com/scripts/deploy-staging.sh
 - Environment: Staging
 
 ## Security Groups
-- Web Server - Stage - Spirited Media (Enables HTTP traffic on Port 80, HTTPS on port 443)
+- Web Server - Stage - Spirited Media (Enables HTTP traffic on Port 80, HTTPS on
+  port 443)
 - Developer SSH (Enables SSH access for approved IPs)
 
 # Accessing the Initial Image
-Find the Public DNS and Public IP information for the instance from the AWS console.
+Find the Public DNS and Public IP information for the instance from the AWS
+console.
 
-Use the Public DNS hostname to SSH into with the user as `ubuntu`. It would be a good idea to add this to your `~/.ssh/config` file to make life easier.
+Use the Public DNS hostname to SSH into with the user as `ubuntu`. It would be a
+good idea to add this to your `~/.ssh/config` file to make life easier.
 
 ```
 Host staging.spiritedmedia.com
-	HostName staging.spiritedmedia.com
-	Port 22
-	User ubuntu
-	IdentityFile ~/.ssh/spirited-media/EC2-Stage-SpiritedMedia.pem
+    HostName staging.spiritedmedia.com
+    Port 22
+    User ubuntu
+    IdentityFile ~/.ssh/spirited-media/EC2-Stage-SpiritedMedia.pem
 ```
-Now type `ssh staging.spiritedmedia.com` in your terminal to connect to the machine.
+Now type `ssh staging.spiritedmedia.com` in your terminal to connect to the
+machine.
 
 # Initial Set-up
 After SSHing into the instance for the first time we need to set things up.
@@ -81,7 +92,6 @@ sudo ee stack install --phpredisadmin
 # Set to 'spirited' and 'media' for convenience
 sudo ee secure --auth
 
-
 # Clone our application repo containing wp-content stuff
 cd /var/www/staging.spiritedmedia.com/htdocs/
 sudo git init
@@ -104,7 +114,32 @@ sudo git reset --hard origin/staging
 sudo chown -R www-data:www-data htdocs/
 ```
 
-Now login to WordPress and set things up the way they need to be set-up (delete unecessary themes and plugins etc).
+Now login to WordPress and set things up the way they need to be set-up (delete
+unecessary themes and plugins etc).
+
+
+## Nginx Configuration Updates
+
+You'll need to make some manual changes to the Nginx config file for
+staging.spiritedmedia.com, located at
+`/etc/nginx/sites-available/staging.spiritedmedia.com` .
+
+Immediately following the opening of the `server` block, add `listen 80
+default_server;` . The first few lines of the file should look like this:
+
+```conf
+# Extract the path from $request_uri and store it in a new variable $request_uri_path
+# See https://stackoverflow.com/a/43749234/1119655
+map $request_uri $request_uri_path {
+  "~^(?P<path>[^?]*)(\?.*)?$"  $path;
+}
+
+server {
+  listen 80 default_server;
+
+```
+
+If there are any existing lines about `listen 80` remove them.
 
 ## wp-config.php
 
@@ -179,16 +214,26 @@ if ( ! empty( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === $_SERVER['HTTP
 ```
 
 ## Set-up the Deploy Script
-Copy `deploy-staging.sh` to `/var/www/scripts/deploy-staging.sh`. This is used by AWS CodeDeploy to update the application from our build repo so the server is running the latest version of the code.
+Copy `deploy-staging.sh` to `/var/www/scripts/deploy-staging.sh`. This is used
+by AWS CodeDeploy to update the application from our build repo so the server is
+running the latest version of the code.
 
 ## Set-up Script to Update OS
-Copy `update-os.sh` to `~/update-os.sh` on the staging server. This is used to update the OS packages on the server and purge old kernals which take up space. Make it executable (`chmod +x update-os.sh`) and run it (`./update-os.sh`) manually from time to time.
+Copy `update-os.sh` to `~/update-os.sh` on the staging server. This is used to
+update the OS packages on the server and purge old kernals which take up space.
+Make it executable (`chmod +x update-os.sh`) and run it (`./update-os.sh`)
+manually from time to time.
 
 ## Password Protection
-Because this is a staging server we only want certain people to be able to access it. Adding a basic authentication layer keeps the public out as well as bots. See the `basic-auth.conf` file in the [nginx section](../nginx/).
+Because this is a staging server we only want certain people to be able to
+access it. Adding a basic authentication layer keeps the public out as well as
+bots. See the `basic-auth.conf` file in the [nginx section](../nginx/).
 
 ## Database Backups
-We perform daily database backups so we have a way to revert changes if need be. The [AutoMySQLBackup](https://sourceforge.net/projects/automysqlbackup/) script performs the dump and [S3cmd-sync](http://s3tools.org/s3cmd-sync) syncs the files to the `staging-spiritedmedia-com` S3 bucket.
+We perform daily database backups so we have a way to revert changes if need be.
+The [AutoMySQLBackup](https://sourceforge.net/projects/automysqlbackup/) script
+performs the dump and [S3cmd-sync](http://s3tools.org/s3cmd-sync) syncs the
+files to the `staging-spiritedmedia-com` S3 bucket.
 
 ### Install AutoMySQLBackup
 ```
@@ -203,9 +248,14 @@ cd /var/www/staging.spiritedmedia.com/backups/automysqlbackup/
 sudo tar -xvzf automysqlbackup-v3.0_rc6.tar.gz
 ```
 
-We need to get the database credentials that EasyEngine set-up for our site. Run `sudo ee site info staging.spiritedmedia.com` and copy the `DB_NAME`, `DB_USER`, and `DB_PASS` values.
+We need to get the database credentials that EasyEngine set-up for our site. Run
+`sudo ee site info staging.spiritedmedia.com` and copy the `DB_NAME`, `DB_USER`,
+and `DB_PASS` values.
 
-Edit `/var/www/staging.spiritedmedia.com/backups/automysqlbackup/automysqlbackup.conf` and uncomment the following values:
+
+Edit
+`/var/www/staging.spiritedmedia.com/backups/automysqlbackup/automysqlbackup.conf`
+and uncomment the following values:
 
 ```
 # Username to access the MySQL server e.g. dbuser
@@ -270,7 +320,8 @@ See the [S3 section](../../s3#install-s3cmd).
 
 ### Create a `backup.sh` Script
 
-Create `/var/www/staging.spiritedmedia.com/backups/backup.sh` and paste the following:
+Create `/var/www/staging.spiritedmedia.com/backups/backup.sh` and paste the
+following:
 
 ```
 #!/bin/bash
@@ -282,16 +333,26 @@ Create `/var/www/staging.spiritedmedia.com/backups/backup.sh` and paste the foll
 s3cmd sync /var/www/staging.spiritedmedia.com/backups/db/ s3://staging-spiritedmedia-com/db/
 ```
 
-Give it a test run `sudo ./backup.sh`. Check the S3 bucket to make sure the files successfully synced.
+Give it a test run `sudo ./backup.sh`. Check the S3 bucket to make sure the
+files successfully synced.
 
 You can automate the backups via a cron job, `sudo crontab -e`.
 
-Add the following, use [crontab.guru](http://crontab.guru/) to identify the timing:
+Add the following, use [crontab.guru](http://crontab.guru/) to identify the
+timing:
 
 ```
 # At 3:29 every day run the DB backup script
 29 3 * * * /var/www/staging.spiritedmedia.com/backups/backup.sh > /dev/null 2>&1
 ```
 
+## Install Weekly Screenshots Tool
+
+You should also install the weekly screenshots tool. Follow the instructions in
+https://github.com/spiritedmedia/weekly-screenshots .
+
+
 # Create an AMI
-Save an AMI via the AWS Console once everything is in it's right place. The AMI will be used to relaunch the instance if necessary. This also provides a backup to the server before major upgrades.
+Save an AMI via the AWS Console once everything is in it's right place. The AMI
+will be used to relaunch the instance if necessary. This also provides a backup
+to the server before major upgrades.
