@@ -33,13 +33,16 @@ If you're locked out and can't login you will need to reset your password. Relyi
 
 After doing a database dump run the following SQL commands in the Query Editor of Sequel Pro.
 
+N.B. The trailing slashes matter in these queries! `billypenn.com/` should have a trailing slash while none of the other URLs should have a trailing slash. This likely has something to do with Billy Penn being created as a single site originally, with the other sites added as new sites once Billy Penn was converted to a site on a multisite network.
+
 ### For Production --> Local
+
 ```
 # Update domains in the wp_x_options tables
-UPDATE `wp_options` SET `option_value` = 'https://spiritedmedia.dev/' WHERE `option_value` = 'https://spiritedmedia.com/';
+UPDATE `wp_options` SET `option_value` = 'https://spiritedmedia.dev' WHERE `option_value` = 'https://spiritedmedia.com';
 UPDATE `wp_2_options` SET `option_value` = 'https://billypenn.dev/' WHERE `option_value` = 'https://billypenn.com/';
-UPDATE `wp_3_options` SET `option_value` = 'https://theincline.dev/' WHERE `option_value` = 'https://theincline.com/';
-UPDATE `wp_4_options` SET `option_value` = 'https://denverite.dev/' WHERE `option_value` = 'https://denverite.com/';
+UPDATE `wp_3_options` SET `option_value` = 'https://theincline.dev' WHERE `option_value` = 'https://theincline.com';
+UPDATE `wp_4_options` SET `option_value` = 'https://denverite.dev' WHERE `option_value` = 'https://denverite.com';
 
 # Update domains in wp_blogs
 UPDATE `wp_blogs` SET `domain` = 'spiritedmedia.dev' WHERE `domain` = 'spiritedmedia.com';
@@ -51,10 +54,10 @@ UPDATE `wp_blogs` SET `domain` = 'denverite.dev' WHERE `domain` = 'denverite.com
 ### For Production --> Staging
 ```
 # Update domains in the wp_x_options tables
-UPDATE `wp_options` SET `option_value` = 'https://staging.spiritedmedia.com/' WHERE `option_value` = 'https://spiritedmedia.com/';
+UPDATE `wp_options` SET `option_value` = 'https://staging.spiritedmedia.com' WHERE `option_value` = 'https://spiritedmedia.com';
 UPDATE `wp_2_options` SET `option_value` = 'https://staging.billypenn.com/' WHERE `option_value` = 'https://billypenn.com/';
-UPDATE `wp_3_options` SET `option_value` = 'https://staging.theincline.com/' WHERE `option_value` = 'https://theincline.com/';
-UPDATE `wp_4_options` SET `option_value` = 'https://staging.denverite.com/' WHERE `option_value` = 'https://denverite.com/';
+UPDATE `wp_3_options` SET `option_value` = 'https://staging.theincline.com' WHERE `option_value` = 'https://theincline.com';
+UPDATE `wp_4_options` SET `option_value` = 'https://staging.denverite.com' WHERE `option_value` = 'https://denverite.com';
 
 # Update domains in wp_blogs
 UPDATE `wp_blogs` SET `domain` = 'staging.spiritedmedia.com' WHERE `domain` = 'spiritedmedia.com';
