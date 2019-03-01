@@ -35,6 +35,8 @@ If you're locked out and can't login you will need to reset your password. Relyi
 
 After doing a database dump run the following SQL commands in the Query Editor of Sequel Pro.
 
+If you're getting redirected to the live sites after running these queries, run `wp cache flush` in the web root directory to flush the object cache.
+
 N.B. The trailing slashes matter in these queries! See note in the section above.
 
 ### For Production --> Local
