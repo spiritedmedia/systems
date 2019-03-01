@@ -15,13 +15,15 @@ If you need to import a fresh site dump then export all of the tables. There wil
 For each site's `wp_options` table you will need to update the URLs. Failure to do this will cause WordPress to redirect to the live site.
 
  - Replace `https://new-domain.dev/` with the new domain name
- - Replace `https://old-domain.com/` with the domain name of the live site (`https://billypenn.com/`, `https://theincline.com/`)
+ - Replace `https://old-domain.com` with the domain name of the live site (`https://billypenn.com/`, `https://theincline.com`)
 
 _Note: In `wp_x_options` replace `x` with the proper site ID (like `wp_2_options` etc.)_
 
 ```
-UPDATE `wp_x_options` SET `option_value` = 'https://new-domain.dev/' WHERE `option_value` = 'https://old-domain.com/';
+UPDATE `wp_x_options` SET `option_value` = 'https://new-domain.dev' WHERE `option_value` = 'https://old-domain.com';
 ```
+
+**The trailing slashes matter in these queries!** `billypenn.com/` should have a trailing slash while none of the other URLs should have a trailing slash. This likely has something to do with Billy Penn being created as a single site originally, with the other sites added as new sites once Billy Penn was converted to a site on a multisite network.
 
 Replace the values in the `domain` column in the `wp_blogs` table.
 
@@ -33,7 +35,7 @@ If you're locked out and can't login you will need to reset your password. Relyi
 
 After doing a database dump run the following SQL commands in the Query Editor of Sequel Pro.
 
-N.B. The trailing slashes matter in these queries! `billypenn.com/` should have a trailing slash while none of the other URLs should have a trailing slash. This likely has something to do with Billy Penn being created as a single site originally, with the other sites added as new sites once Billy Penn was converted to a site on a multisite network.
+N.B. The trailing slashes matter in these queries! See note in the section above.
 
 ### For Production --> Local
 
