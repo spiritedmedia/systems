@@ -29,7 +29,9 @@ Replace the values in the `domain` column in the `wp_blogs` table.
 
 If you're doing a dump for a new developer, add them to the production sites first then do the dump. It's just easier that way.
 
-If you're locked out and can't login you will need to reset your password. Relying on the password reset link to be emailed to you can be unreliable. See the [Reset Password](https://codex.wordpress.org/Resetting_Your_Password) section of the Codex or get the MD5 hash of a string and replace the `user_pass` field for your user ID in the `wp_users` table. Once you log in WordPress will convert the MD5 hash to a more secure hash.
+### Login Issues
+
+If you're locked out and can't login, try clearing all saved cookies for each site, as they might have become invalid after importing a new database. If clearing cookies doesn't work, you will need to reset your password. Relying on the password reset link to be emailed to you can be unreliable. See the [Reset Password](https://codex.wordpress.org/Resetting_Your_Password) section of the Codex or get the MD5 hash of a string and replace the `user_pass` field for your user ID in the `wp_users` table. Once you log in WordPress will convert the MD5 hash to a more secure hash.
 
 ## Cleanup SQL Commands
 
