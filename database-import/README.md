@@ -79,6 +79,46 @@ DELETE FROM `wp_4_options` WHERE `option_name` LIKE 'mailchimp%';
 ```
 
 
+### Isolating Individual Sites
+
+If you only need one particular site, you can clear out the posts, postmeta, and
+some other heavy tables for the sites you don't need. But make sure to leave the
+tables intact, deleting only the rows.
+
+N.B. The `wp_x_options` tables for each site should remain untouched.
+
+For example, if you only need data for Denverite, you can run the following,
+where `wp_2_` is the prefix for Billy Penn and `wp_3_` is the prefix for The
+Incline:
+
+```sql
+DELETE FROM `wp_2_p2p`;
+DELETE FROM `wp_2_p2pmeta`;
+DELETE FROM `wp_2_postmeta`;
+DELETE FROM `wp_2_posts`;
+DELETE FROM `wp_2_redirection_404`;
+DELETE FROM `wp_2_redirection_groups`;
+DELETE FROM `wp_2_redirection_items`;
+DELETE FROM `wp_2_redirection_logs`;
+DELETE FROM `wp_2_term_relationships`;
+DELETE FROM `wp_2_term_taxonomy`;
+DELETE FROM `wp_2_termmeta`;
+DELETE FROM `wp_2_terms`;
+DELETE FROM `wp_3_p2p`;
+DELETE FROM `wp_3_p2pmeta`;
+DELETE FROM `wp_3_postmeta`;
+DELETE FROM `wp_3_posts`;
+DELETE FROM `wp_3_redirection_404`;
+DELETE FROM `wp_3_redirection_groups`;
+DELETE FROM `wp_3_redirection_items`;
+DELETE FROM `wp_3_redirection_logs`;
+DELETE FROM `wp_3_term_relationships`;
+DELETE FROM `wp_3_term_taxonomy`;
+DELETE FROM `wp_3_termmeta`;
+DELETE FROM `wp_3_terms`;
+```
+
+
 ### Common Issues
 
 If you're locked out and can't login, try clearing all saved cookies for each
