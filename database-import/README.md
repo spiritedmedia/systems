@@ -119,6 +119,36 @@ DELETE FROM `wp_3_terms`;
 ```
 
 
+### Adding A New Super-Admin Manually
+
+If you need to add yourself as a Super-Admin to an existing database, or for
+some reason you can't or prefer not to add a new user to the production site
+before exporting it, this section is for you.
+
+SSH into the server with `ssh <host>` or `vagrant ssh`. Then run the following
+commands, replacing the values as needed:
+
+```sh
+# Replace `<network-domain-name>` with the appropriate value for the environment
+# you're working with.
+#
+# Local: `spiritedmedia.dev`
+# Staging: `staging.spiritedmedia.com`
+# Production: `spiritedmedia.com`
+cd /var/www/<network-domain-name>/htdocs/
+
+wp user create <username> <email> --role=administrator
+wp super-admin add <username>
+
+# You'll probably also want to give your new user a role on each site. Run the
+# following command for each site, replacing `site-url` as needed.
+wp --url=<site-url> user set-role <username> administrator
+```
+
+You should then be able to log into the site with the username and password
+output from the `wp user create` command.
+
+
 ### Common Issues
 
 If you're locked out and can't login, try clearing all saved cookies for each
